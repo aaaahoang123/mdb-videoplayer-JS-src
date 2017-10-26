@@ -1,0 +1,20 @@
+body {
+        padding-top: 58px;
+}
+.animated.fadeIn {
+        -webkit-animation-duration: 0.5s;
+        -o-animation-duration: 0.5s;
+        -moz-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+}
+.thumb {
+        overflow: hidden;
+}
+.thumb img {
+        margin: -10% 0;
+        width: 100%;
+}
+div.row.display-flex div.col-lg-4.col-md-6.col-sm-6 div.card{
+        margin-bottom: 5px;
+        margin-top: 5px;
+}
