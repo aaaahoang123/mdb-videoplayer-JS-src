@@ -1,5 +1,5 @@
 body {
-        padding-top: 58px;
+        padding-top: 70px;
 }
 .animated.fadeIn {
         -webkit-animation-duration: 0.5s;
@@ -13,6 +13,49 @@ body {
 .thumb img {
         margin: -10% 0;
         width: 100%;
+}
+.responsive-background {
+        background-size: cover;
+        height: 300px;
+}
+.responsive-carousel-thumb {
+        background-size: cover;
+        height: 60px;
+        width: 75px;
+}
+@media (min-width:991px) and (max-width: 1199px) {
+        .responsive-background {
+                height: 250px;
+        }
+        .responsive-carousel-thumb {
+                height: 53px;
+                width: 60px;
+        }
+}
+@media (min-width: 768px) and (max-width: 990px) {
+        .responsive-background {
+                height: 180px;
+        }
+        .responsive-carousel-thumb {
+                height: 50px;
+                width: 60px;
+        }
+}
+
+@media (min-width:600px) and (max-width: 767px) {
+        .responsive-background {
+                height: 450px;
+        }
+        .responsive-carousel-thumb {
+                height: 65px;
+                width: 100px;
+        }
+}
+@media (min-width:380px) and (max-width: 600px) {
+        .responsive-carousel-thumb {
+                height: 50px;
+                width: 100px;
+        }
 }
 div.row.display-flex div.col-lg-4.col-md-6.col-sm-6 div.card{
         margin-bottom: 5px;
