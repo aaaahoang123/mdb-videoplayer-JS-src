@@ -3,6 +3,7 @@ var membersApi = 'https://youtube-api-challenger2.appspot.com/members';
 var authenticationApi = 'https://youtube-api-challenger2.appspot.com/authentication';
 var playlistApi = 'https://youtube-api-challenger2.appspot.com/playlists';
 var userToken = localStorage.getItem('token');
+toastr.options.positionClass = "toast-bottom-right";
 if (userToken !== null) {
     document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[0].innerHTML = '<i class="fa fa-user"></i>' + localStorage.getItem('username');
     document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[1].innerHTML = '<i class="fa fa-sign-out"></i> Đăng xuất';
@@ -47,16 +48,30 @@ var signIn = function () {
             setTimeout(function () {
                 $("#modalLoginForm").modal('hide');
                 toastr["success"]("Đăng nhập thành công!");
-            },500);
+            },100);
             setTimeout (function () {
                 location.reload();
             },1200);
         }
         else if (this.readyState === 4 && this.status !== 200){
             var errorResponse = JSON.parse(this.responseText);
-            console.log(errorResponse);
+            toastr["error"](errorResponse.errors[0].title + "! " + errorResponse.errors[0].detail);
         }
     };
     xhttp.open("POST", authenticationApi, true);
     xhttp.send(JSON.stringify(signinData));
+};
+
+var videoData = function (id, name, description, keywords, playlistId, thumbnail) {
+    this.data = {
+        "type":"Video",
+        "attributes":{
+            "youtubeId": id,
+            "name": name,
+            "description": description,
+            "keywords": keywords,
+            "playlistId": playlistId,
+            "thumbnail": thumbnail
+        }
+    }
 };

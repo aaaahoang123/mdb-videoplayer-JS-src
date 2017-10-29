@@ -40,7 +40,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chức năng</a>
                     <div class="dropdown-menu dropdown-primary animated fadeIn" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#"><i class="fa fa-upload"></i> Thêm video</a>
+                        <a class="dropdown-item" href="pages/upload.html"><i class="fa fa-upload"></i> Thêm video</a>
                         <a class="dropdown-item" href="#"><i class="fa fa-list"></i> Playlist</a>
                     </div>
                 </li>
@@ -103,123 +103,115 @@
     <div class="row">
         <div class="col-md-4">
             <!-- card new video -->
-            <div class="card">
+            <div class="card" id="new-video-card">
                 <h5 class="card-header primary-color white-text">Video mới</h5>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <img class="d-block w-100" src="https://i.ytimg.com/vi/EV-91JV4Fws/mqdefault.jpg" alt="">
-                        </div>
-                        <div class="col-md-12">
-                            <a href=""><p>Charlie Puth - We Don't Talk Anymore (feat. Selena Gomez) [Official Video]</p></a>
-                        </div>
+                        <a>
+                            <div class="col-md-12">
+                                <img class="d-block w-100" src="" alt="">
+                            </div>
+                            <div class="col-md-12">
+                                <p></p>
+                            </div>
+                        </a>
+
                     </div>
                 </div>
             </div>
             <!-- /card new video -->
             <hr>
-            <div class="card sticky-top" id="sticky-playlist-card" style="top: 70px; display: none">
-                <a><h5 class="card-header default-color white-text">Playlist của bạn</h5></a>
-                <!--Carousel Wrapper playlist-->
-                <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
-                    <!--Slides-->
-                    <div class="carousel-inner" role="listbox">
-                        <a class="carousel-item active responsive-background" style="display: none">
+            <div class="sticky-top" id="sticky-playlist-card" style="top: 70px; display: none">
+                <a><h5>Playlist của bạn</h5></a>
+                <br>
+                <!--<div class="row">-->
+                    <!--<a class="col-md-4 col-sm-6 responsive-background"></a>-->
+                    <!--<div class="col-md-8 col-sm-6">-->
+                        <!--<a><h5></h5></a>-->
+                        <!--<p></p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="row">-->
+                    <!--<a class="col-md-4 col-sm-6 responsive-background"></a>-->
+                    <!--<div class="col-md-8 col-sm-6">-->
+                        <!--<a><h5></h5></a>-->
+                        <!--<p></p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="row">-->
+                    <!--<a class="col-md-4 col-sm-6 responsive-background"></a>-->
+                    <!--<div class="col-md-8 col-sm-6">-->
+                        <!--<a><h5></h5></a>-->
+                        <!--<p></p>-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                        </a>
-                        <a class="carousel-item responsive-background" style="display: none">
 
-                        </a>
-                        <a class="carousel-item responsive-background" style="display: none">
 
-                        </a>
-                    </div>
-                    <!--/.Slides-->
-                    <!--Controls-->
-                    <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                    <!--/.Controls-->
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-thumb" data-slide-to="0" class="active">
-                            <div class="responsive-carousel-thumb" style="display: none">
-
-                            </div>
-                        </li>
-                        <li data-target="#carousel-thumb" data-slide-to="1">
-                            <div class="responsive-carousel-thumb" style="display: none">
-
-                            </div>
-                        </li>
-                        <li data-target="#carousel-thumb" data-slide-to="2">
-                            <div class="responsive-carousel-thumb" style="display: none">
-
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-                <!--/.Carousel Wrapper playlist-->
             </div>
 
         </div>
 
         <div class="col-md-8">
             <!--Carousel Wrapper-->
-            <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+            <div id="carousel-top-trend" class="carousel slide carousel-fade" data-ride="carousel">
                 <!--Indicators-->
                 <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-2" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-2" data-slide-to="2"></li>
+                    <li data-target="#carousel-top-trend" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-top-trend" data-slide-to="1"></li>
+                    <li data-target="#carousel-top-trend" data-slide-to="2"></li>
                 </ol>
                 <!--/.Indicators-->
                 <!--Slides-->
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <div class="view hm-white-slight thumb">
-                            <img class="d-block w-100" src="https://i.ytimg.com/vi/Z4HivEWoXGE/hqdefault.jpg" alt="First slide">
-                            <div class="mask"></div>
-                        </div>
-                        <div class="carousel-caption">
-                            <h3 class="h3-responsive">Light mask</h3>
-                            <p>First text</p>
-                        </div>
+                        <a>
+                            <div class="view hm-white-slight thumb">
+                                <img class="d-block w-100" src="" alt="First slide">
+                                <div class="mask"></div>
+                            </div>
+                            <div class="carousel-caption animated fadeInDown">
+                                <h3 class="h3-responsive default-color"></h3>
+                            </div>
+                        </a>
+
                     </div>
                     <div class="carousel-item">
                         <!--Mask color-->
-                        <div class="view hm-white-slight thumb">
-                            <img class="d-block w-100" src="https://i.ytimg.com/vi/YR01fPd_RiU/hqdefault.jpg" alt="Second slide">
-                            <div class="mask"></div>
-                        </div>
-                        <div class="carousel-caption">
-                            <h3 class="h3-responsive">Strong mask</h3>
-                            <p>Secondary text</p>
-                        </div>
+                        <a>
+                            <div class="view hm-white-slight thumb">
+                                <img class="d-block w-100" src="" alt="Second slide">
+                                <div class="mask"></div>
+                            </div>
+                            <div class="carousel-caption animated fadeInDown">
+                                <h3 class="h3-responsive default-color"></h3>
+                            </div>
+                        </a>
+
                     </div>
                     <div class="carousel-item">
                         <!--Mask color-->
-                        <div class="view hm-white-slight thumb">
-                            <img class="d-block w-100" src="https://i.ytimg.com/vi/6TUOSBPCygs/hqdefault.jpg" alt="Third slide">
-                            <div class="mask"></div>
-                        </div>
-                        <div class="carousel-caption">
-                            <h3 class="h3-responsive">Slight mask</h3>
-                            <p>Third text</p>
-                        </div>
+                        <a>
+                            <div class="view hm-white-slight thumb">
+                                <img class="d-block w-100" src="" alt="Third slide">
+                                <div class="mask"></div>
+                            </div>
+                            <div class="carousel-caption animated fadeInDown">
+                                <h3 class="h3-responsive default-color"></h3>
+                            </div>
+                        </a>
+
                     </div>
                 </div>
                 <!--/.Slides-->
                 <!--Controls-->
-                <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+                <a class="carousel-control-prev" data-target="#carousel-top-trend" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+                <a class="carousel-control-next" data-target="#carousel-top-trend" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
@@ -253,7 +245,7 @@
 </main>
 
     <!--Modal: modalYT-->
-    <section class="modal animated fadeIn" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <section  class="modal animated fadeIn" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
 
             <!--Content-->
@@ -271,19 +263,19 @@
                 <!--Footer-->
                 <div class="modal-footer justify-content-right">
                     <!--<p class="green-text" ng-show="uploadSuccess">Upload video thành công</p>-->
-                    <!--<div class="dropdown">-->
-                        <!--<button type="button" class="btn btn-outline-orange btn-rounded btn-md ml-4 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                            <!--Thêm vào-->
+                    <div class="dropdown" style="display: none">
+                        <button type="button" class="btn btn-outline-orange btn-rounded btn-md ml-4 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Thêm vào
                             <!--<div class="progress primary-color-dark" ng-show="uploadingVideo">-->
                                 <!--<div class="indeterminate"></div>-->
                             <!--</div>-->
-                        <!--</button>-->
-                        <!--&lt;!&ndash;Menu&ndash;&gt;-->
-                        <!--<div class="dropdown-menu dropdown-primary animated fadeIn">-->
-                            <!--<a class="dropdown-item" href="" ng-click="addVideoInModal('0')">Playlist chung</a>-->
-                            <!--<a class="dropdown-item" href="" ng-repeat="playlist in playlistArray" ng-click="addVideoInModal(playlist.id)" ng-bind="playlist.attributes.name"></a>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                        </button>
+                        <!--Menu-->
+                        <div class="dropdown-menu dropdown-primary animated fadeIn">
+                            <a class="dropdown-item" onclick="addVideoToPlaylist('0')">Playlist chung</a>
+
+                        </div>
+                    </div>
                     <button type="button" class="btn btn-outline-default btn-rounded btn-md ml-4" onclick="closeVideoModal()">Đóng</button>
                 </div>
 
@@ -307,9 +299,17 @@
     <script type="text/javascript" src="js/home.js"></script>
     <script>
         getVideoFromYoutube();
+        loadTopTrendingVideo();
         if (userToken !== null) {
             loadUserPlaylist();
             document.getElementById("sticky-playlist-card").style.display = "";
+            document.querySelector("section#modalYT > div > div > div > div.dropdown").style.display = "";
+            getNewAddVideo();
+        }
+        else {
+            document.querySelector("#new-video-card > div > div > a > div > img").src = "http://1.bp.blogspot.com/-SRdKauDRBg4/T3pVgdOxgAI/AAAAAAAAAZs/-QxJ9qdb8FI/s640/undefined_01.jpg";
+            document.querySelector("#new-video-card > div > div > a > div > img").alt = "Chưa có video";
+            document.querySelector("#new-video-card > div > div > a > div > p").innerHTML = "Không có video mới! Bạn chưa đăng nhập hoặc chưa từng upload video";
         }
     </script>
 </body>

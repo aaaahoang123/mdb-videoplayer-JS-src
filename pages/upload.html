@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Upload Video</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="../css/selecty.min.css">
+    <link href="../css/mdb.min.css" rel="stylesheet">
+
+    <!-- Your custom styles (optional) -->
+    <link href="../css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark default-color-dark fixed-top">
+    <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">V4U</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html"><i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chức năng</a>
+                    <div class="dropdown-menu dropdown-primary animated fadeIn" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item active" href="#"><i class="fa fa-upload"></i> Thêm video</a>
+                        <a class="dropdown-item" href="#"><i class="fa fa-list"></i> Playlist</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+            <!-- Links -->
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link"></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- Collapsible content -->
+    </div>
+</nav>
+
+<div class="modal animated fadeIn" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-bold">Đăng nhập</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="signinForm" class="modal-body mx-3">
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" name="username" class="form-control">
+                    <label>Tài khoản</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" name="password" class="form-control validate">
+                    <label data-error="">Mật khẩu</label>
+                </div>
+
+            </form>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-default" type="button" onclick="signIn()">Đăng nhập</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/.Navbar-->
+<!-- main -->
+<main class="container">
+    <!-- bread crumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item active">Thêm video</li>
+    </ol>
+    <!-- /bread crumb -->
+    <!-- Section panel -->
+    <!--Panel-->
+    <section>
+        <h4 class="card-title">Thêm video</h4>
+        <div class="row">
+            <div class="col-md-6 card card-body" ondragover="allowDrop(event)" ondrop="drop(event)">
+                <!-- Form contact -->
+                <form action="upload" name="uploadForm">
+                    <p class="h5 text-center mb-4">Thông tin video</p>
+                    <!-- Video Id -->
+                    <div class="md-form">
+                        <i class="fa fa-id-badge prefix grey-text"></i>
+                        <input type="text" class="form-control" name="youtubeId" onblur="checkNDemoVideo()" maxlength="11" minlength="11" pattern="[A-Za-z0-9_-]*" required>
+                        <label>Video Id</label>
+                    </div>
+                    <!-- Video Name -->
+                    <div class="md-form">
+                        <i class="fa fa-youtube prefix grey-text"></i>
+                        <input type="text" class="form-control" name="name" maxlength="50" minlength="3" required>
+                        <label>Tên video</label>
+                    </div>
+                    <!-- Description -->
+                    <div class="md-form">
+                        <i class="fa fa-info prefix grey-text"></i>
+                        <textarea type="text" class="md-textarea" style="height: 100px" name="description"></textarea>
+                        <label>Mô tả</label>
+                    </div>
+                    <!-- Key words -->
+                    <div class="md-form">
+                        <i class="fa fa-key prefix grey-text"></i>
+                        <input type="text" class="form-control" name="keywords">
+                        <label>Từ khóa</label>
+                    </div>
+                    <!-- Playlist -->
+                    <div class="md-form">
+                        <i class="fa fa-list prefix grey-text"></i>
+                        <div class="ml-5" style="padding-top: 2%" id="playlist-select">
+                            <select name="playlistId">
+                                <option value="0">Playlist chung</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center">
+                        <button type="button" class="btn btn-default" onclick="addVideo()"><i class="fa fa-plus"></i> Thêm</button>
+                    </div>
+
+                </form>
+                <!-- Form contact -->
+            </div>
+            <div class="col-md-6 card card-body" id="demo-card">
+                <div id="searchVideoTab">
+                    <div class="md-form input-group">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-lg" type="button" onclick="getVideo('')"><i class="fa fa-search"></i></button>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Tìm kiếm video" id="search-query">
+                    </div>
+                    <div class="row display-flex" id="videos-thumb">
+                        <!--<div class="col-lg-6 col-md-12">-->
+                            <!--<div class="card padding-thumb">-->
+                                <!--<img src="https://i.ytimg.com/vi/iKzRIweSBLA/mqdefault.jpg" alt="" style="width: 100%">-->
+                            <!--</div>-->
+                            <!--<span>ákjdhajksdh</span>-->
+                        <!--</div>-->
+                    </div>
+                    <br>
+                    <nav class="row" style="display: none">
+                        <ul class="pagination pagination-lg pg-blue">
+                            <li class="page-item disabled" id="prev-page-btn">
+                                <a class="page-link" aria-label="Previous" onclick="return prevSearchPage()">
+                                    <span aria-hidden="true">Prev</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Next" onclick="return nextSearchPage()">
+                                    <span aria-hidden="true">Next</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="animated flipInY" style="display: none" id="demoVideoTab">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src=""></iframe>
+                    </div>
+                    <br>
+                    <h5 class="grey-text"></h5>
+                    <button type="button" class="btn btn-default" onclick="toSearchVideoTab()"><i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;Quay lại</button>
+                    <button type="button" class="btn btn-info"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Thông tin</button>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    <!--/.Panel-->
+
+</main>
+<!-- JQuery -->
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="../js/selecty.min.js"></script>
+<script type="text/javascript" src="../js/mdb.js"></script>
+<script type="text/javascript" src="../js/toastr.min.js"></script>
+<script type="text/javascript" src="../js/navbar.js"></script>
+<script type="text/javascript" src="../js/upload.js"></script>
+<script>
+    if (userToken !== null) {
+        loadUserPlaylist();
+    }
+</script>
+</body>
+
+</html>
