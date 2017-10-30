@@ -52,6 +52,10 @@ videoData.prototype.demo = function () {
 // bind value to HTML method
 videoData.prototype.bindToForm = function () {
     document.forms["uploadForm"]["youtubeId"].value = this.data.attributes.youtubeId;
+    var labels = document.forms["uploadForm"].querySelectorAll("label");
+    for (var i=0; i<labels.length; i++) {
+      labels[i].className = "active";
+    }
     document.forms["uploadForm"]["name"].value = this.data.attributes.name;
     document.forms["uploadForm"]["description"].value = this.data.attributes.description;
     document.forms["uploadForm"]["keywords"].value = this.data.attributes.keywords;
