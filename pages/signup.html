@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Upload Video</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="../css/selecty.min.css">
+    <link href="../css/mdb.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/bootstrap-datepicker3.standalone.min.css">
+    <!-- Your custom styles (optional) -->
+    <link href="../css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark default-color-dark fixed-top">
+    <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="../index.html">V4U</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html"><i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chức năng</a>
+                    <div class="dropdown-menu dropdown-primary animated fadeIn" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="upload.html"><i class="fa fa-upload"></i> Thêm video</a>
+                        <a class="dropdown-item" href="playlist.html"><i class="fa fa-list"></i> Playlist</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+            <!-- Links -->
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link"></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- Collapsible content -->
+    </div>
+</nav>
+
+<div class="modal animated fadeIn" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-bold">Đăng nhập</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="signinForm" class="modal-body mx-3">
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" name="username" class="form-control">
+                    <label>Tài khoản</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" name="password" class="form-control validate">
+                    <label data-error="">Mật khẩu</label>
+                </div>
+
+            </form>
+			<div class="mx-5 pt-3 mb-1">
+				<p class="font-small grey-text d-flex justify-content-end">Không phải thành viên? <a class="blue-text ml-1" data-dismiss="modal" data-target="#modalLoginForm"> Đăng ký</a></p>
+			</div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-default" type="button" onclick="signIn()">Đăng nhập</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/.Navbar-->
+
+
+<!-- main -->
+<main class="container">
+    <!-- bread crumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item active">Đăng ký</li>
+    </ol>
+	<section>
+		<!-- Form sign up -->
+		<form name="signup-form" id="signup-form">
+			<p class="h5 text-center mb-4">Đăng ký</p>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="md-form">				
+						<i class="fa fa-user-circle-o prefix grey-text"></i>
+						<input type="text" class="form-control" name="username" minlength="7" required pattern="[A-Za-z0-9]*">
+						<label>Tài khoản</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="md-form">				
+						<i class="fa fa-envelope prefix grey-text"></i>
+						<input type="email" class="form-control" name="email" minlength="7" required>
+						<label>Email</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="md-form">				
+						<i class="fa fa-lock prefix grey-text"></i>
+						<input type="password" class="form-control" name="password" minlength="7" required>
+						<label>Mật khẩu</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="md-form">				
+						<i class="fa fa-keyboard-o prefix grey-text"></i>
+						<input type="password" class="form-control" name="confirm-password" required>
+						<label>Nhập lại mật khẩu</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="md-form">				
+						<i class="fa fa-id-card-o prefix grey-text"></i>
+						<input type="text" class="form-control" name="full-name">
+						<label>Họ tên</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="md-form date" data-provide="datepicker">
+						<i class="fa fa-birthday-cake prefix grey-text"></i>
+						<input type="text" class="form-control" name="birthday" placeholder="Tháng/Ngày/Năm">
+						<label>Sinh nhật</label>
+						<div class="input-group-addon" style="display: none"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="md-form">				
+						<i class="fa fa-intersex prefix grey-text"></i>
+                        <div class="ml-5" style="padding-top: 20px">
+                            <select name="gender">
+                                <option value="2" selected>Khác</option>
+								<option value="0">Nam</option>
+								<option value="1">Nữ</option>
+                            </select>
+                        </div>
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="md-form">				
+						<i class="fa fa-smile-o prefix grey-text"></i>
+						<input type="text" class="form-control" name="avatar">
+						<label>Avatar URL</label>
+					</div>
+				</div>
+			</div>
+			<div class="mx-5 pt-3 mb-1">
+				<p class="font-small grey-text d-flex justify-content-end">Đã có tài khoản? <a data-toggle="modal" data-target="#modalLoginForm" class="blue-text ml-1"> Đăng nhập</a></p>
+			</div>
+			<div class="text-center">
+				<button type="button" class="btn blue-gradient" onclick="signUp()">Đăng ký</button>
+				<button type="reset" class="btn purple-gradient" onclick="resetForm()">Reset</button>
+			</div>
+		</form>
+
+		<!-- Form login -->
+	</section>
+</main>
+	
+	<!-- JQuery -->
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+
+<script type="text/javascript" src="../js/selecty.min.js"></script>
+<script type="text/javascript" src="../js/mdb.js"></script>
+<script type="text/javascript" src="../js/toastr.min.js"></script>
+<script type="text/javascript" src="../js/navbar.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="../js/signup.js"></script>
+
+<script type="text/javascript">
+    $('select').selecty(); // change the select of form to selecty material style
+    $('.datepicker').datepicker({
+        format: 'mm/dd/yyyy',
+        Date: '-3d'
+    }); // Change the time input to date picker
+</script>
+
+</body>
+
+</html>

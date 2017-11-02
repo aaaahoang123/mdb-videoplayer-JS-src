@@ -41,7 +41,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chức năng</a>
                     <div class="dropdown-menu dropdown-primary animated fadeIn" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="pages/upload.html"><i class="fa fa-upload"></i> Thêm video</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-list"></i> Playlist</a>
+                        <a class="dropdown-item" href="pages/playlist.html"><i class="fa fa-list"></i> Playlist</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -52,7 +52,7 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link"></a>
+                    <a href="pages/signup.html" class="nav-link"></a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link"></a>
@@ -84,8 +84,10 @@
                         <input type="password" name="password" class="form-control validate">
                         <label data-error="">Mật khẩu</label>
                     </div>
-
                 </form>
+				<div class="mx-5 pt-3 mb-1">
+					<p class="font-small grey-text d-flex justify-content-end">Không phải thành viên? <a href="pages/signup.html" class="blue-text ml-1"> Đăng ký</a></p>
+				</div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button class="btn btn-default" type="button" onclick="signIn()">Đăng nhập</button>
                 </div>
@@ -108,7 +110,7 @@
                 <div class="card-body">
                     <div class="row">
                         <a>
-                            <div class="col-md-12">
+                            <div class="col-md-12 waves-effect waves-light">
                                 <img class="d-block w-100" src="" alt="">
                             </div>
                             <div class="col-md-12">
@@ -223,7 +225,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="md-form">
-                        <input type="text" class="form-control" id="search-query">
+                        <input type="text" class="form-control" id="search-query" onkeyup="enterToSearch(event)">
                         <label>Tìm kiếm</label>
                     </div>
                 </div>
@@ -245,7 +247,7 @@
 </main>
 
     <!--Modal: modalYT-->
-    <section  class="modal animated fadeIn" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <section  class="modal fade fadeIn" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
 
             <!--Content-->

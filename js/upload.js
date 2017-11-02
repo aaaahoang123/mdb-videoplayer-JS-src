@@ -1,3 +1,10 @@
+if (userToken === null) {
+    $("#alert-modal").modal();
+}
+else {
+    document.querySelector("main.container").style.display = "";
+}
+
 var videoDataToSend = new videoData();
 var nextPageToken = "";
 var prevPageToken = "";
@@ -67,7 +74,12 @@ videoData.prototype.upload = function () {
         if (this.readyState === 4) {
             if (this.status === 201) {
                 var response = JSON.parse(this.responseText);
-                console.log(response);
+                var resetForm = new videoData("","","","","","");
+                resetForm.bindToForm();
+                var labels = document.forms["uploadForm"].querySelectorAll("label");
+                for (var i=0; i<labels.length; i++) {
+                  labels[i].className = "";
+                }
                 toastr["success"]("Thêm video vào playlist thành công!");
             }
             else {
@@ -147,7 +159,6 @@ function takeInfoOfVideo() {
               }
               else {
                   toastr["error"]("Video này không tồn tại trên hệ thống!");
-                  console.log(response);
               }
 
           }
@@ -169,11 +180,28 @@ function loadUserPlaylist() {
           if (this.status === 200) {
               var response = JSON.parse(this.responseText);
               var playlistOption;
+              if (location.search !== "") {
+                var search = convertLocationSearchToJSON(location.search);
+              }
+              else {
+                search = new Object();
+              }
+              if (search.playlistId !== undefined) {
+                    var choosenPlaylistId = search.playlistId;
+              }
+              else {
+                  choosenPlaylistId = "0";
+              }
               for (var i=0; i<response.data.length; i++) {
                   playlistOption = document.createElement("option");
                   playlistOption.value = response.data[i].id;
                   playlistOption.appendChild(document.createTextNode(response.data[i].attributes.name));
+                  if (response.data[i].id === choosenPlaylistId) {
+                      document.querySelector("#playlist-select").value = choosenPlaylistId;
+                      playlistOption.setAttribute("selected", "true");
+                  }
                   document.querySelector("#playlist-select select").appendChild(playlistOption);
+
               }
               $('select').selecty();
           }
@@ -204,11 +232,9 @@ function addVideo() {
     var playlistId = document.forms["uploadForm"]["playlistId"].value;
     var thumbnail = "https://i.ytimg.com/vi/" + youtubeId.value + "/mqdefault.jpg";
     var videoAdding = new videoData(youtubeId.value, videoName.value, description, keywords, playlistId, thumbnail);
-    console.log(videoAdding);
     if (youtubeId.validity.valid && videoName.validity.valid) {
         videoAdding.upload();
     }
-
     if (youtubeId.validity.tooShort || youtubeId.validity.tooLong) {
         toastr["warning"]("ID của video chỉ có 11 ký tự");
     }
@@ -228,22 +254,34 @@ function addVideo() {
 }
 //some animation
 function toDemoVideoTab() {
-    document.querySelector("#searchVideoTab").className = "animated zoomOutDown";
+    document.querySelector("#searchVideoTab").className = "animated zoomOut";
     setTimeout(function () {
         document.querySelector("#searchVideoTab").style.display = "none";
-        document.querySelector("#demoVideoTab").className = "animated zoomInDown";
+        document.querySelector("#demoVideoTab").className = "animated zoomIn";
         document.querySelector("#demoVideoTab").style.display = "";
-    },500);
+    },200);
 }
 function toSearchVideoTab() {
-    document.querySelector("#demoVideoTab").className = "animated zoomOutDown";
+    document.querySelector("#demoVideoTab").className = "animated zoomOut";
     setTimeout(function () {
         document.querySelector("#demoVideoTab").style.display = "none";
-        document.querySelector("#searchVideoTab").className = "animated zoomInDown";
+        document.querySelector("#searchVideoTab").className = "animated zoomIn";
         document.querySelector("#searchVideoTab").style.display = "";
         document.querySelector("#demoVideoTab > div > iframe").src = "";
-    },500);
+    },200);
 }
+// auto complete the form with data store in global var videoDataToSend
 function autoComplete() {
     videoDataToSend.bindToForm();
+}
+// event to search when press enter
+function enterToGetVideo(event) {
+    if (event.which === 13 || event.keyCode === 13) {
+        getVideo("");
+    }
+}
+
+function signInFromAlert() {
+    $("#alert-modal").modal("hide");
+    $("#modalLoginForm").modal("show");
 }

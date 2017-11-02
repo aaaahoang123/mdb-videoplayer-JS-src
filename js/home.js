@@ -89,7 +89,6 @@ function getVideoFromYoutube() {
     xhttp.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
           var response = JSON.parse(this.responseText);
-          console.log(response);
           var videosArray = response.items;
           pageToken = response.nextPageToken;
           for (var i=0; i<videosArray.length; i++) {
@@ -112,7 +111,12 @@ function searchVideo() {
     document.getElementById("youtubeVideoView").innerHTML = "";
     getVideoFromYoutube();
 }
-
+// enter to search video
+function enterToSearch(event) {
+    if (event.which === 13 || event.keyCode === 13) {
+        searchVideo();
+    }
+}
 // play video within modal, and make the DataToSend ready
 function playVideo(videoData) {
     document.querySelector("#modalYT").classList.remove("fadeOut");
@@ -132,7 +136,7 @@ function closeVideoModal() {
     setTimeout(function () {
         $("#modalYT").modal('hide');
         document.querySelector("#modalYT div div div div iframe").src = "";
-    },500);
+    },100);
 
 }
 
@@ -144,47 +148,50 @@ function loadUserPlaylist() {
             var playlistCard = document.querySelector("#sticky-playlist-card");
             var listPlaylistToAdd = document.querySelector("section#modalYT > div > div > div > div.dropdown > div.dropdown-menu");
             // Bind playlist img to left aside card
-            for (var i=0; i<playlistArray.length && i<3; i++) {
-                playlistId = playlistArray[i].id;
-                // row
-                var row = document.createElement("div");
-                row.className = "row shadow-box";
-                row.addEventListener("dragover", function () {                                                  //1. <div class="row shadow-box" ondragover="allowDrop(event)"
-                   allowDrop(event);                                                                            // ondrop="drop(event, playlistId)">
-                });
-                row.setAttribute("ondrop", 'drop(event,' + playlistId + ')');
-                // thumb
-                var thumb = document.createElement("a");                                                               //2L. <a class="col-md-4 col-sm-6 responsive-background"
-                thumb.className = "col-md-4 col-sm-6 responsive-background";                                           // style="background-image: url(playlistArray[i].attributes.thumbnailUrl)">
-                thumb.style.backgroundImage = "url(" + playlistArray[i].attributes.thumbnailUrl + ")";
+            if (playlistArray !== undefined) {
+                for (var i=0; i<playlistArray.length && i<3; i++) {
+                    playlistId = playlistArray[i].id;
+                    // row
+                    var row = document.createElement("div");
+                    row.className = "row shadow-box";
+                    row.addEventListener("dragover", function () {                                                  //1. <div class="row shadow-box" ondragover="allowDrop(event)"
+                        allowDrop(event);                                                                            // ondrop="drop(event, playlistId)">
+                    });
+                    row.setAttribute("ondrop", 'drop(event,' + playlistId + ')');
+                    // thumb
+                    var thumb = document.createElement("a");                                                               //2L. <a class="col-md-4 col-sm-6 responsive-background"
+                    thumb.className = "col-md-4 col-sm-6 responsive-background";                                           // style="background-image: url(playlistArray[i].attributes.thumbnailUrl)">
+                    thumb.style.backgroundImage = "url(" + playlistArray[i].attributes.thumbnailUrl + ")";
 
-                // info
-                var info = document.createElement("div");                                                              //2R. <div class="col-md-8 col-sm-6">
-                info.className = "col-md-8 col-sm-6";
-                // plName link
-                var plNameLink = document.createElement("a");                                                               //2R > 3. <a>
-                //pl Name
-                var plName = document.createElement("h5");
-                plName.appendChild(document.createTextNode(playlistArray[i].attributes.name));                                  //2R > 3 > 4.1 <h5>playlistArray[i].attributes.name</h5>
-                plNameLink.appendChild(plName);
-                var plDescription = document.createElement("p");                                                                 //2R > 3 > 4.2 <p>playlistArray[i].attributes.description</p>
-                plDescription.appendChild(document.createTextNode(playlistArray[i].attributes.description));
-                // info.appendChild(document.createElement("br"));
-                info.appendChild(plNameLink);
-                info.appendChild(plDescription);
-                row.appendChild(thumb);
-                row.appendChild(info);
-                // append to View
-                playlistCard.appendChild(row);
+                    // info
+                    var info = document.createElement("div");                                                              //2R. <div class="col-md-8 col-sm-6">
+                    info.className = "col-md-8 col-sm-6";
+                    // plName link
+                    var plNameLink = document.createElement("a");                                                               //2R > 3. <a>
+                    //pl Name
+                    var plName = document.createElement("h5");
+                    plName.appendChild(document.createTextNode(playlistArray[i].attributes.name));                                  //2R > 3 > 4.1 <h5>playlistArray[i].attributes.name</h5>
+                    plNameLink.appendChild(plName);
+                    var plDescription = document.createElement("p");                                                                 //2R > 3 > 4.2 <p>playlistArray[i].attributes.description</p>
+                    plDescription.appendChild(document.createTextNode(playlistArray[i].attributes.description));
+                    // info.appendChild(document.createElement("br"));
+                    info.appendChild(plNameLink);
+                    info.appendChild(plDescription);
+                    row.appendChild(thumb);
+                    row.appendChild(info);
+                    // append to View
+                    playlistCard.appendChild(row);
+                }
+                for (i=0; i<playlistArray.length; i++) {
+                    playlistId = playlistArray[i].id;
+                    var playlist = document.createElement("a");
+                    playlist.className = "dropdown-item";
+                    playlist.appendChild(document.createTextNode(playlistArray[i].attributes.name));
+                    playlist.setAttribute("onclick", "addVideoToPlaylist(" + playlistId + ")");
+                    listPlaylistToAdd.appendChild(playlist);
+                }
             }
-            for (i=0; i<playlistArray.length; i++) {
-                playlistId = playlistArray[i].id;
-                var playlist = document.createElement("a");
-                playlist.className = "dropdown-item";
-                playlist.appendChild(document.createTextNode(playlistArray[i].attributes.name));
-                playlist.setAttribute("onclick", "addVideoToPlaylist(" + playlistId + ")");
-                listPlaylistToAdd.appendChild(playlist);
-            }
+
         }
         else if (this.readyState === 4 && this.status !== 200) {
             console.log(this.response);
@@ -234,6 +241,11 @@ function getNewAddVideo() {
                   document.querySelector("#new-video-card > div > div > a > div > img").src = "https://i.ytimg.com/vi/" + response.data[0].attributes.youtubeId + "/mqdefault.jpg";
                   document.querySelector("#new-video-card > div > div > a > div > img").alt = response.data[0].attributes.name;
                   document.querySelector("#new-video-card > div > div > a > div > p").innerHTML = response.data[0].attributes.name;
+              }
+              else {
+                  document.querySelector("#new-video-card > div > div > a > div > img").src = "http://1.bp.blogspot.com/-SRdKauDRBg4/T3pVgdOxgAI/AAAAAAAAAZs/-QxJ9qdb8FI/s640/undefined_01.jpg";
+                  document.querySelector("#new-video-card > div > div > a > div > img").alt = "Chưa có video";
+                  document.querySelector("#new-video-card > div > div > a > div > p").innerHTML = "Không có video mới! Bạn chưa đăng nhập hoặc chưa từng upload video";
               }
           }
           else {

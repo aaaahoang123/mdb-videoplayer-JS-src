@@ -32,18 +32,16 @@ body {
         background-size: cover;
         height: 120px;
 }
-.responsive-carousel-thumb {
+.playlist-thumb {
         background-size: cover;
-        height: 60px;
-        width: 75px;
+        height: 350px;
 }
 @media (min-width:991px) and (max-width: 1199px) {
         .responsive-background {
                 height: 90px;
         }
-        .responsive-carousel-thumb {
-                height: 53px;
-                width: 60px;
+        .playlist-thumb {
+                height: 300px;
         }
 }
 @media (min-width: 768px) and (max-width: 990px) {
@@ -60,9 +58,8 @@ body {
         .responsive-background {
                 height: 240px;
         }
-        .responsive-carousel-thumb {
-                height: 65px;
-                width: 100px;
+        .playlist-thumb {
+                height: 225px;
         }
 }
 @media (min-width:380px) and (max-width: 575px) {
@@ -70,8 +67,8 @@ body {
                 height: 50px;
                 width: 100px;
         }
-        .responsive-background {
-                height: 350px;
+        .playlist-thumb {
+                height: 375px;
         }
 }
 div.row.display-flex div.col-lg-4.col-md-6.col-sm-6 div.card{
@@ -85,4 +82,10 @@ div.row.display-flex div.col-lg-4.col-md-6.col-sm-6 div.card{
 .padding-thumb {
         margin-top: 5px;
         margin-bottom: 5px;
+}
+.limit-char-p {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 }

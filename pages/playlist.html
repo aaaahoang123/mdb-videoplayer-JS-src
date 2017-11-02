@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Upload Video</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="../css/selecty.min.css">
+    <link href="../css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap-datepicker3.standalone.min.css">
+    <!-- Your custom styles (optional) -->
+    <link href="../css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark default-color-dark fixed-top">
+    <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="../index.html">V4U</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html"><i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chức năng</a>
+                    <div class="dropdown-menu dropdown-primary animated fadeIn" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="upload.html"><i class="fa fa-upload"></i> Thêm video</a>
+                        <a class="dropdown-item active" href="#"><i class="fa fa-list"></i> Playlist</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+            <!-- Links -->
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="signup.html" class="nav-link"></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- Collapsible content -->
+    </div>
+</nav>
+
+<div class="modal animated fadeIn" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-bold">Đăng nhập</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="signinForm" class="modal-body mx-3">
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" name="username" class="form-control">
+                    <label>Tài khoản</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" name="password" class="form-control validate">
+                    <label data-error="">Mật khẩu</label>
+                </div>
+
+            </form>
+            <div class="mx-5 pt-3 mb-1">
+                <p class="font-small grey-text d-flex justify-content-end">Không phải thành viên? <a class="blue-text ml-1" href="signup.html"> Đăng ký</a></p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-default" type="button" onclick="signIn()">Đăng nhập</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/.Navbar-->
+<!-- Delete Playlist Modal -->
+<section class="modal animated fadeIn" id="delete-playlist-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title w-100 font-bold"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button type="button" class="btn danger-color"><i class="fa fa-trash"></i> Xóa</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-chevron-left"></i> Đóng</button>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- Alert when no signin -->
+<section class="modal animated fadeIn" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title w-100 font-bold">Bạn chưa đăng nhập</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="grey-text">Playlist là tính năng dành cho thành viên! Nếu bạn là thành viên, hãy đăng nhập, nếu bạn chưa phải thành viên, hãy đăng ký để tham gia với chúng tôi!</p>
+                <div class="text-center">
+                    <a type="button" class="btn btn-primary btn-sm" href="signup.html"><i class="fa fa-registered"></i> Đăng ký</a>
+                    <a type="button" class="btn btn-default btn-sm" onclick="signInFromAlert()"><i class="fa fa-sign-in"></i> Đăng nhập</a> 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- main -->
+<main class="container" style="display: none">
+    <!-- bread crumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item active">Playlist</li>
+    </ol>
+    <!-- content -->
+    <!-- Nav tabs -->
+    <section class="tabs-wrapper">
+        <ul class="nav classic-tabs tabs-default" role="tablist" id="localTab">
+            <li class="nav-item">
+                <a class="nav-link waves-light active" data-toggle="tab" href="#playlist-tab" role="tab"><i class="fa fa-list-ul fa-2x" aria-hidden="true"></i><br> Playlist</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" data-toggle="tab" href="#add-playlist-tab" role="tab"><i class="fa fa-plus fa-2x" aria-hidden="true"></i><br> Thêm playlist</a>
+            </li>
+            <li class="nav-item" style="display: none">
+                <a class="nav-link waves-light" data-toggle="tab" href="#video-inPl-tab" role="tab"><i class="fa fa-youtube-play fa-2x" aria-hidden="true"></i><br> Video</a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Tab panels -->
+    <section class="tab-content card">
+
+        <!--Panel 1-->
+        <div class="tab-pane fade in show active" id="playlist-tab" role="tabpanel">
+
+            <div class="row display-flex">
+                <!--<div class="col-lg-4 col-md-6 col-sm-6 padding-thumb">-->
+                    <!--&lt;!&ndash;Card&ndash;&gt;-->
+                    <!--<div class="card">-->
+                        <!--&lt;!&ndash;Card image&ndash;&gt;-->
+                        <!--<div class="view overlay hm-white-slight">-->
+                            <!--<div class="playlist-thumb" style="background-image: url(http://admin.adcbook.net.vn//files/products/0H920.jpg);">-->
+                            <!--</div>-->
+                            <!--<a>-->
+                                <!--<div class="mask"></div>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;/.Card image&ndash;&gt;-->
+                        <!--&lt;!&ndash;Button&ndash;&gt;-->
+                        <!--<a class="btn-floating btn-action"><i class="fa fa-chevron-right"></i></a>-->
+                        <!--&lt;!&ndash;Card content&ndash;&gt;-->
+                        <!--<div class="card-body">-->
+                            <!--&lt;!&ndash;Title&ndash;&gt;-->
+                            <!--<h4 class="card-title limit-char-p">Card titleádjhakjsdhajksdhjksahdkjashdjkashdjkasdjkasjkasjk</h4>-->
+                            <!--<hr>-->
+                            <!--&lt;!&ndash;Text&ndash;&gt;-->
+                            <!--<p class="card-text limit-char-p">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;/.Card content&ndash;&gt;-->
+                        <!--&lt;!&ndash; Card footer &ndash;&gt;-->
+                        <!--<div class="card-data">-->
+                            <!--<ul>-->
+                                <!--<li><i class="fa fa-clock-o"></i> 05/10/2015</li>-->
+                                <!--<li><a><i class="fa fa-plus"></i>Thêm video</a></li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; Card footer &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/.Card&ndash;&gt;-->
+                <!--</div>-->
+            </div>
+        </div>
+        <!--/.Panel 1-->
+
+        <!--Panel 2-->
+        <div class="tab-pane fade" id="add-playlist-tab" role="tabpanel">
+            <!-- Form playlist -->
+            <form name="add-playlist-form">
+                <p class="h5 text-center mb-4">Thêm playlist</p>
+
+                <div class="md-form">
+                    <i class="fa fa-th prefix grey-text"></i>
+                    <input type="text" class="form-control" name="name" required minlength="7">
+                    <label>Tên playlist</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fa fa-info prefix grey-text"></i>
+                    <textarea type="text" class="md-textarea" style="height: 30px" name="description"></textarea>
+                    <label for="defaultForm-pass">Mô tả</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fa fa-image prefix grey-text"></i>
+                    <input type="text" class="form-control" name="thumbnail">
+                    <label>Thumbnail Url</label>
+                </div>
+
+                <div class="text-center">
+                    <button type="button" class="btn btn-default" onclick="addPlaylist()"><i class="fa fa-download"></i> Lưu</button>
+                </div>
+            </form>
+            <!-- Form playlist -->
+        </div>
+        <!--/.Panel 2-->
+        <!--Panel 3-->
+        <div class="tab-pane fade" id="video-inPl-tab" role="tabpanel">
+            <!-- Nav tabs -->
+            <ul class="nav md-pills nav-justified pills-secondary">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#" role="tab"><i class="fa fa-list-ul"></i>&nbsp;<span></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="upload.html"><i class="fa fa-plus-circle"></i> Thêm video</a>
+                </li>
+            </ul>
+
+            <div class="row display-flex">
+
+            </div>
+
+        </div>
+        <!--/.Panel 3-->
+    </section>
+</main>
+
+<!-- JQuery -->
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="../js/mdb.js"></script>
+<script type="text/javascript" src="../js/toastr.min.js"></script>
+<script type="text/javascript" src="../js/navbar.js"></script>
+<script type="text/javascript" src="../js/playlist.js"></script>
+<script>
+    loadNBindPlaylist();
+</script>
+</body>
+</html>

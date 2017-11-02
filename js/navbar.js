@@ -6,11 +6,12 @@ var userToken = localStorage.getItem('token');
 toastr.options.positionClass = "toast-bottom-right";
 if (userToken !== null) {
     document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[0].innerHTML = '<i class="fa fa-user"></i>' + localStorage.getItem('username');
+	document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[0].removeAttribute("href");
     document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[1].innerHTML = '<i class="fa fa-sign-out"></i> Đăng xuất';
     document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[1].addEventListener('click', signOut);
 }
 else {
-    document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[0].innerHTML = '<i class="fa fa-user"></i> Đăng ký';
+    document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[0].innerHTML = '<i class="fa fa-user-plus"></i> Đăng ký';
     document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[1].innerHTML = '<i class="fa fa-sign-in"></i> Đăng nhập';
     document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[1].addEventListener('click', openSigninModal);
 }
@@ -25,23 +26,22 @@ function signOut() {
         location.reload();
     },400);
 }
-var signIn = function () {
-    var username = document.forms["signinForm"]["username"].value;
-    var password = document.forms["signinForm"]["password"].value;
-    var signinData = {
-        "data": {
-            "type": "MemberLogin",
-            "attributes": {
-                "username": username,
-                "password": password
-            }
+var signinData = function (username,password) {
+    this.data = {
+        "type": "MemberLogin",
+        "attributes": {
+            "username": username,
+            "password": password
         }
-    };
+    }
+};
+signinData.prototype.signIn = function () {
+    var username = this.data.attributes.username;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
             var response = JSON.parse(this.responseText);
-            localStorage.setItem('username', signinData.data.attributes.username);
+            localStorage.setItem('username', username);
             localStorage.setItem('token', response.data.attributes.secretToken);
             document.querySelector("#modalLoginForm").classList.remove('fadeIn');
             document.querySelector("#modalLoginForm").classList.add('fadeOut');
@@ -50,7 +50,12 @@ var signIn = function () {
                 toastr["success"]("Đăng nhập thành công!");
             },100);
             setTimeout (function () {
-                location.reload();
+                if (location.pathname.match(/signup.html/) === null) {
+                    location.reload();
+                }
+                else {
+                    location.href = "../index.html";
+                }
             },1200);
         }
         else if (this.readyState === 4 && this.status !== 200){
@@ -59,7 +64,13 @@ var signIn = function () {
         }
     };
     xhttp.open("POST", authenticationApi, true);
-    xhttp.send(JSON.stringify(signinData));
+    xhttp.send(JSON.stringify(this));
+};
+var signIn = function () {
+    var username = document.forms["signinForm"]["username"].value;
+    var password = document.forms["signinForm"]["password"].value;
+    var signinDataToSend  = new signinData(username, password);
+    signinDataToSend.signIn();
 };
 
 var videoData = function (id, name, description, keywords, playlistId, thumbnail) {
@@ -75,3 +86,36 @@ var videoData = function (id, name, description, keywords, playlistId, thumbnail
         }
     }
 };
+
+var playlistData = function(name, description, thumbnailUrl) {
+    this.data = {
+        "type":"Playlist",
+        "attributes":{
+            "name": name,
+            "description": description,
+            "thumbnailUrl": thumbnailUrl
+        }
+    }
+};
+
+playlistData.prototype.sendPlaylist = function() {
+    var dataToSend = new playlistData();
+    dataToSend.data = this.data;
+    this.xhttp = new XMLHttpRequest();
+    this.xhttp.open("POST", playlistApi, false);
+    this.xhttp.setRequestHeader("Content-Type", "application/json");
+    this.xhttp.setRequestHeader("Authorization", localStorage.getItem('token'));
+    this.xhttp.send(JSON.stringify(dataToSend));
+}
+function convertLocationSearchToJSON(search) {
+    var params = search;
+    params = "{\"" +
+        params
+            .replace( /\?/gi, "" )
+            .replace( /\&/gi, "\",\"" )
+            .replace( /\=/gi, "\":\"" ) +
+        "\"}";
+
+    params = JSON.parse( params );
+    return params;
+}

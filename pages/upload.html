@@ -44,7 +44,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chức năng</a>
                     <div class="dropdown-menu dropdown-primary animated fadeIn" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item active" href="#"><i class="fa fa-upload"></i> Thêm video</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-list"></i> Playlist</a>
+                        <a class="dropdown-item" href="playlist.html"><i class="fa fa-list"></i> Playlist</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -55,7 +55,7 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link"></a>
+                    <a href="signup.html" class="nav-link"></a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link"></a>
@@ -87,8 +87,10 @@
                     <input type="password" name="password" class="form-control validate">
                     <label data-error="">Mật khẩu</label>
                 </div>
-
             </form>
+			<div class="mx-5 pt-3 mb-1">
+				<p class="font-small grey-text d-flex justify-content-end">Không phải thành viên? <a href="signup.html" class="blue-text ml-1"> Đăng ký</a></p>
+			</div>
             <div class="modal-footer d-flex justify-content-center">
                 <button class="btn btn-default" type="button" onclick="signIn()">Đăng nhập</button>
             </div>
@@ -96,8 +98,29 @@
     </div>
 </div>
 <!--/.Navbar-->
+
+<!-- Alert when no signin -->
+<section class="modal animated fadeIn" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title w-100 font-bold">Bạn chưa đăng nhập</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="grey-text">Playlist là tính năng dành cho thành viên! Nếu bạn là thành viên, hãy đăng nhập, nếu bạn chưa phải thành viên, hãy đăng ký để tham gia với chúng tôi!</p>
+                <div class="text-center">
+                    <a type="button" class="btn btn-primary btn-sm" href="signup.html"><i class="fa fa-registered"></i> Đăng ký</a>
+                    <a type="button" class="btn btn-default btn-sm" onclick="signInFromAlert()"><i class="fa fa-sign-in"></i> Đăng nhập</a> 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- main -->
-<main class="container">
+<main class="container" style="display: none">
     <!-- bread crumb -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
@@ -161,7 +184,7 @@
                         <span class="input-group-btn">
                             <button class="btn btn-info btn-lg" type="button" onclick="getVideo('')"><i class="fa fa-search"></i></button>
                         </span>
-                        <input type="text" class="form-control" placeholder="Tìm kiếm video" id="search-query">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm video" id="search-query" onkeyup="enterToGetVideo(event)">
                     </div>
                     <div class="row display-flex" id="videos-thumb">
                         <!--<div class="col-lg-6 col-md-12">-->
