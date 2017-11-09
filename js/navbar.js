@@ -106,7 +106,7 @@ playlistData.prototype.sendPlaylist = function() {
     this.xhttp.setRequestHeader("Content-Type", "application/json");
     this.xhttp.setRequestHeader("Authorization", localStorage.getItem('token'));
     this.xhttp.send(JSON.stringify(dataToSend));
-}
+};
 function convertLocationSearchToJSON(search) {
     var params = search;
     params = "{\"" +
@@ -115,7 +115,6 @@ function convertLocationSearchToJSON(search) {
             .replace( /\&/gi, "\",\"" )
             .replace( /\=/gi, "\":\"" ) +
         "\"}";
-
     params = JSON.parse( params );
     return params;
 }

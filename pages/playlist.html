@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Upload Video</title>
+    <link rel="icon" href="../img/playlist.png">
+    <title>Quản Lý Playlist</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -22,7 +23,7 @@
 <body>
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark default-color-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark purple-gradient fixed-top">
     <div class="container">
         <!-- Navbar brand -->
         <a class="navbar-brand" href="../index.html">V4U</a>
@@ -148,7 +149,7 @@
     <!-- content -->
     <!-- Nav tabs -->
     <section class="tabs-wrapper">
-        <ul class="nav classic-tabs tabs-default" role="tablist" id="localTab">
+        <ul class="nav classic-tabs tabs-deep-orange" role="tablist" id="localTab">
             <li class="nav-item">
                 <a class="nav-link waves-light active" data-toggle="tab" href="#playlist-tab" role="tab"><i class="fa fa-list-ul fa-2x" aria-hidden="true"></i><br> Playlist</a>
             </li>
@@ -221,7 +222,7 @@
                 <div class="md-form">
                     <i class="fa fa-info prefix grey-text"></i>
                     <textarea type="text" class="md-textarea" style="height: 30px" name="description"></textarea>
-                    <label for="defaultForm-pass">Mô tả</label>
+                    <label>Mô tả</label>
                 </div>
 
                 <div class="md-form">
@@ -231,7 +232,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="button" class="btn btn-default" onclick="addPlaylist()"><i class="fa fa-download"></i> Lưu</button>
+                    <button type="button" class="btn btn-blue-grey" onclick="addPlaylist()">Lưu&nbsp;<i class="fa fa-download"></i></button>
                 </div>
             </form>
             <!-- Form playlist -->
@@ -257,7 +258,81 @@
         <!--/.Panel 3-->
     </section>
 </main>
+<!--Footer-->
+<footer class="page-footer center-on-small-only purple-gradient">
 
+    <!--Footer Links-->
+    <div class="container">
+        <div class="row my-4">
+
+            <!--First column-->
+            <div class="col-md-4 col-lg-4">
+                <h5 class="title mb-4 font-bold">Video For You</h5>
+                <p>Dự án học tập và làm việc cùng API.</p>
+                <p>Bạn có thể tạo playlist cho riêng mình, chỉnh sửa mọi thông tin theo những gì bạn thích. Thao tác nhanh chóng với giao diện kéo thả.</p>
+            </div>
+            <!--/.First column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Second column-->
+            <div class="col-md-2 col-lg-2 ml-auto">
+                <h5 class="title mb-4 font-bold">Link</h5>
+                <ul>
+                    <p><a href="../index.html">Trang chủ</a></p>
+                    <p><a href="playlist.html">Playlist</a></p>
+                    <p><a href="upload.html">Thêm Video</a></p>
+                </ul>
+            </div>
+            <!--/.Second column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Third column-->
+            <div class="col-md-4 col-lg-3">
+                <h5 class="title mb-4 font-bold">Liên hệ</h5>
+                <!--Info-->
+                <p><i class="fa fa-home mr-3"></i> C1707G, FPT Aptech, 8A Tôn Thất Thuyết, Hà Nội</p>
+                <p><i class="fa fa-envelope mr-3"></i> hoangdd00524@fpt.edu.vn</p>
+                <p><i class="fa fa-phone mr-3"></i> 01 234 567 89</p>
+                <p><i class="fa fa-print mr-3"></i> 09 876 543 21</p>
+            </div>
+            <!--/.Third column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Fourth column-->
+            <div class="col-md-2 col-lg-2 text-center">
+                <h5 class="title mb-4 font-bold">Follow</h5>
+                <!--Social buttons-->
+                <div class="social-section mt-2 ">
+                    <!--Facebook-->
+                    <a type="button" class="btn-floating btn-small btn-fb"><i class="fa fa-facebook"></i></a>
+                    <!--Twitter-->
+                    <a type="button" class="btn-floating btn-small btn-tw"><i class="fa fa-twitter"></i></a>
+                    <!--Google +-->
+                    <a type="button" class="btn-floating btn-small btn-gplus"><i class="fa fa-google-plus"></i></a>
+                    <!--Dribbble-->
+                    <a type="button" class="btn-floating btn-small btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                </div>
+            </div>
+            <!--/.Fourth column-->
+
+        </div>
+    </div>
+    <!--/.Footer Links-->
+
+    <!--Copyright-->
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2017 Copyright: <a href="#"> Đỗ Hoàng - FPT Aptech - C1707G </a> & Support by: <a href="#"> Mr. Đào Xuân Hùng</a>
+
+        </div>
+    </div>
+    <!--/.Copyright-->
+
+</footer>
+<!--/.Footer-->
 <!-- JQuery -->
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap tooltips -->

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="icon" href="../img/watch.png">
+    <title>Xem Video</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="../css/selecty.min.css">
+    <link href="../css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap-datepicker3.standalone.min.css">
+    <!-- Your custom styles (optional) -->
+    <link href="../css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark purple-gradient fixed-top">
+    <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="../index.html">V4U</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html"><i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chức năng</a>
+                    <div class="dropdown-menu dropdown-primary animated fadeIn" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="upload.html"><i class="fa fa-upload"></i> Thêm video</a>
+                        <a class="dropdown-item" href="playlist.html"><i class="fa fa-list"></i> Playlist</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+            <!-- Links -->
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="signup.html" class="nav-link"></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- Collapsible content -->
+    </div>
+</nav>
+
+<div class="modal animated fadeIn" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-bold">Đăng nhập</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="signinForm" class="modal-body mx-3">
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" name="username" class="form-control">
+                    <label>Tài khoản</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" name="password" class="form-control validate">
+                    <label data-error="">Mật khẩu</label>
+                </div>
+
+            </form>
+            <div class="mx-5 pt-3 mb-1">
+                <p class="font-small grey-text d-flex justify-content-end">Không phải thành viên? <a class="blue-text ml-1" href="signup.html"> Đăng ký</a></p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-default" type="button" onclick="signIn()">Đăng nhập</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/.Navbar-->
+<!-- Central Modal Medium Danger -->
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger modal-sm" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <p class="heading lead">Đã xảy ra lỗi!</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="fa fa-warning fa-3x mb-3 animated rotateIn"></i>
+                    <p>Đường dẫn không chính xác! Có thể dã xảy ra lỗi trong quá trình xử lý, hoặc do bạn chưa đăng nhập! Nếu được, vui lòng chụp ảnh và gửi phản hồi cho chúng tôi!</p>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a href="../index.html" type="button" class="btn btn-primary-modal">Trang chủ</a>
+                <a type="button" class="btn btn-outline-secondary-modal waves-effect" data-dismiss="modal">Đóng</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- Central Modal Medium Danger-->
+<div class="modal animated fadeIn" id="videoFormModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-bold">Thêm hoặc Sửa video</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <form action="upload" name="uploadOrEditForm" id="uploadOrEditForm">
+                    <div class="md-form">
+                        <i class="fa fa-snowflake-o prefix grey-text"></i>
+                        <input type="text" name="videoId" id="form3" class="form-control disabled" disabled>
+                        <label for="form3">ID Video</label>
+                    </div>
+
+                    <div class="md-form">
+                        <i class="fa fa-youtube prefix grey-text"></i>
+                        <input type="text" name="videoName" id="form2" class="form-control">
+                        <label for="form2">Tên Video</label>
+                    </div>
+
+                    <div class="md-form">
+                        <i class="fa fa-info prefix grey-text"></i>
+                        <textarea type="text" name="description" id="form8" class="md-textarea" style="height: 70px"></textarea>
+                        <label for="form8">Mô tả</label>
+                    </div>
+
+                    <div class="md-form">
+                        <i class="fa fa-key prefix grey-text"></i>
+                        <input type="text" name="keywords" id="form32" class="form-control">
+                        <label for="form32">Từ khóa</label>
+                    </div>
+
+                    <div class="md-form">
+                        <i class="fa fa-list prefix grey-text"></i>
+                        <div class="ml-5" style="padding-top: 2%">
+                            <select name="playlistId">
+                                <option value="0">Playlist chung</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-default">Gửi <i class="fa fa-paper-plane-o ml-1"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Central Modal Medium Danger -->
+<div class="modal fade" id="alert-delete-video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger modal-sm" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <p class="heading lead">Bạn thực sự muốn xóa video này?</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="fa fa-warning fa-3x mb-3 animated rotateIn"></i>
+                    <p>Video sẽ bị xóa vĩnh viễn! Nhưng bạn có thể thêm lại chúng vào playlist! Bạn xác nhận muốn xóa?</p>
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" class="btn btn-primary-modal">Xóa</a>
+                <a type="button" class="btn btn-outline-secondary-modal waves-effect" data-dismiss="modal">Đóng</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+<!-- same-playlist-modal -->
+<div class="modal fade bottom" id="same-playlist-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false" data-backdrop="false">
+    <div class="modal-dialog modal-frame modal-bottom" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cùng Playlist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <section class="tabs-wrapper">
+                    <ul class="nav classic-tabs rgba-white-slight justify-content-center" role="tablist" id="localTab">
+
+                        <!--<li class="nav-item">-->
+                            <!--<a class="nav-link waves-light active" data-toggle="tab" href="#page-1" role="tab">1</a>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item ">-->
+                            <!--<a class="nav-link waves-light" data-toggle="tab" href="#page-2" role="tab">2</a>-->
+                        <!--</li>-->
+
+                    </ul>
+                </section>
+
+                <div class="tab-content">
+                    <!--<div class="tab-pane fade" id="page-1" role="tabpanel">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-lg-2 col-md-4 col-sm-6" style="overflow: hidden; text-overflow: ellipsis;">-->
+                                <!--<div class="card">-->
+                                    <!--<div class="view overlay waves-effect waves-light">-->
+                                        <!--<img class="img-fluid" src="https://i.ytimg.com/vi/-vBmsDxSeNU/mqdefault.jpg" alt="[Vietsub + Kara] Jay Chou - 03 Pháo Hoa Chóng Tàn (Yan Hua Yi Leng).FLV" title="[Vietsub + Kara] Jay Chou - 03 Pháo Hoa Chóng Tàn (Yan Hua Yi Leng).FLV" style="width: 100%;">-->
+                                        <!--<a href="watch.html?plid=1509638091595&amp;cid=1509870671256">-->
+                                            <!--<div class="mask flex-center">-->
+                                                <!--<i class="fa fa-play-circle-o fa-3x white-text"></i>-->
+                                            <!--</div>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<a class="grey-text"><h6>[Vietsub + Kara] Jay Chou - 03 Pháo Hoa Chóng Tàn (Yan Hua Yi Leng).FLV</h6></a>-->
+                            <!--</div>-->
+
+
+                        <!--</div>-->
+                    <!--</div>-->
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- same playlist modal -->
+<main class="container">
+    <!-- bread crumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item active">Xem video</li>
+    </ol>
+
+    <section class="row" id="content" style="display: none">
+        <div class="col-lg-8 col-md-12">
+            <div class="row" id="watching-video">
+                <div class="card" style="margin-bottom: 15px; width: 100%">
+                    <div class="embed-responsive embed-responsive-16by9" style="margin-bottom: 30px">
+                        <iframe class="embed-responsive-item" src="" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h4 class="col-md-9 col-sm-9"></h4>
+                            <div class="col-md-3 col-sm-3 text-right" id="c-video-activator" style="display: none">
+                                <a style="margin: 0 10px" class="grey-text" data-toggle="modal" data-target="#same-playlist-modal">
+                                    <i class="hover-popover fa fa-list" data-toggle="popover" data-placement="bottom" data-content="Playlist"></i>
+                                </a>
+                                <a style="margin: 0 10px" class="grey-text" data-toggle="modal" data-target="#videoFormModal"><i class="hover-popover fa fa-edit" data-toggle="popover" data-placement="bottom" data-content="Sửa"></i></a>
+                                <a style="margin: 0 10px" class="grey-text" data-toggle="modal" data-target="#alert-delete-video"><i class="fa fa-trash hover-popover" data-toggle="popover" data-placement="bottom" data-content="Xóa"></i></a>
+                            </div>
+                            <div class="col-md-3 col-sm-3 text-right" id="y-video-activator" style="display: none">
+                                <a style="margin: 0 10px" class="grey-text" data-toggle="modal" data-target="#videoFormModal">
+                                    Thêm video
+                                    <i class="fa fa-plus hover-popover" data-toggle="popover" data-placement="bottom" data-content="Thêm video này vào playlist"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                        <p><strong>Xuất bản:</strong> <span></span></p>
+                        <p class="limit-char-p" style="white-space: pre-line">
+                            <strong>Mô tả:</strong>
+                            <span></span>
+                        </p>
+                        <p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#video-keyword" aria-expanded="false" aria-controls="video-keyword">
+                                Từ khóa
+                            </button>
+                        </p>
+                        <div class="collapse limit-char-p" style="white-space: pre-line" id="video-keyword">
+                            <p style="white-space: pre-line"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+                        <!--Card-->
+            <div class="card sticky-top" id="watching-playlist" style="top: 58px; display: none">
+
+                <!--Card image-->
+                <div class="view overlay hm-white-slight">
+                    <div class="playlist-thumb">
+
+                    </div>
+                    <a data-toggle="modal" href="#same-playlist-modal">
+                        <div class="mask"></div>
+                    </a>
+                </div>
+                <!--/.Card image-->
+
+                <!--Button-->
+                <a class="btn-floating btn-action" data-toggle="modal" href="#same-playlist-modal"><i class="fa fa-chevron-left"></i></a>
+
+                <!--Card content-->
+                <div class="card-body">
+                    <!--Title-->
+                    <h4 class="card-title"></h4>
+                    <hr>
+                    <!--Text-->
+                    <p class="card-text limit-char-p">
+
+                    </p>
+                </div>
+                <!--/.Card content-->
+
+                <!-- Card footer -->
+                <div class="card-data">
+                    <ul>
+                        <li><i class="fa fa-clock-o"></i>&nbsp;<span></span></li>
+                    </ul>
+                </div>
+                <!-- Card footer -->
+
+            </div>
+            <!--/.Card-->
+            <hr>
+            <div class="text-center">
+                <strong>Có thể bạn sẽ thích</strong>
+            </div>
+            <div id="sub-video">
+
+            </div>
+        </div>
+    </section>
+</main>
+<!--Footer-->
+<footer class="page-footer center-on-small-only purple-gradient">
+
+    <!--Footer Links-->
+    <div class="container">
+        <div class="row my-4">
+
+            <!--First column-->
+            <div class="col-md-4 col-lg-4">
+                <h5 class="title mb-4 font-bold">Video For You</h5>
+                <p>Dự án học tập và làm việc cùng API.</p>
+                <p>Bạn có thể tạo playlist cho riêng mình, chỉnh sửa mọi thông tin theo những gì bạn thích. Thao tác nhanh chóng với giao diện kéo thả.</p>
+            </div>
+            <!--/.First column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Second column-->
+            <div class="col-md-2 col-lg-2 ml-auto">
+                <h5 class="title mb-4 font-bold">Link</h5>
+                <ul>
+                    <p><a href="../index.html">Trang chủ</a></p>
+                    <p><a href="playlist.html">Playlist</a></p>
+                    <p><a href="upload.html">Thêm Video</a></p>
+                </ul>
+            </div>
+            <!--/.Second column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Third column-->
+            <div class="col-md-4 col-lg-3">
+                <h5 class="title mb-4 font-bold">Liên hệ</h5>
+                <!--Info-->
+                <p><i class="fa fa-home mr-3"></i> C1707G, FPT Aptech, 8A Tôn Thất Thuyết, Hà Nội</p>
+                <p><i class="fa fa-envelope mr-3"></i> hoangdd00524@fpt.edu.vn</p>
+                <p><i class="fa fa-phone mr-3"></i> 01 234 567 89</p>
+                <p><i class="fa fa-print mr-3"></i> 09 876 543 21</p>
+            </div>
+            <!--/.Third column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Fourth column-->
+            <div class="col-md-2 col-lg-2 text-center">
+                <h5 class="title mb-4 font-bold">Follow</h5>
+                <!--Social buttons-->
+                <div class="social-section mt-2 ">
+                    <!--Facebook-->
+                    <a type="button" class="btn-floating btn-small btn-fb"><i class="fa fa-facebook"></i></a>
+                    <!--Twitter-->
+                    <a type="button" class="btn-floating btn-small btn-tw"><i class="fa fa-twitter"></i></a>
+                    <!--Google +-->
+                    <a type="button" class="btn-floating btn-small btn-gplus"><i class="fa fa-google-plus"></i></a>
+                    <!--Dribbble-->
+                    <a type="button" class="btn-floating btn-small btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                </div>
+            </div>
+            <!--/.Fourth column-->
+
+        </div>
+    </div>
+    <!--/.Footer Links-->
+
+    <!--Copyright-->
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2017 Copyright: <a href="#"> Đỗ Hoàng - FPT Aptech - C1707G </a> & Support by: <a href="#"> Mr. Đào Xuân Hùng</a>
+
+        </div>
+    </div>
+    <!--/.Copyright-->
+
+</footer>
+<!--/.Footer-->
+<!-- JQuery -->
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="../js/mdb.js"></script>
+<script type="text/javascript" src="../js/toastr.min.js"></script>
+<script type="text/javascript" src="../js/selecty.min.js"></script>
+<script type="text/javascript" src="../js/navbar.js"></script>
+<script type="text/javascript" src="../js/watch.js"></script>
+<script>
+    // popovers Initialization
+$(function () {
+  $('[data-toggle="popover"]').popover()
+});
+</script>
+
+</body>
+</html>

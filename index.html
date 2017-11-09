@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>VideoPlayer</title>
+    <link rel="icon" href="img/index.png">
+    <title>Music For You</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -19,7 +20,7 @@
 <body>
 
     <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark default-color-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark purple-gradient fixed-top">
     <div class="container">
             <!-- Navbar brand -->
         <a class="navbar-brand" href="#">V4U</a>
@@ -106,8 +107,8 @@
         <div class="col-md-4">
             <!-- card new video -->
             <div class="card" id="new-video-card">
-                <h5 class="card-header primary-color white-text">Video mới</h5>
                 <div class="card-body">
+                    <h5>Video mới</h5>
                     <div class="row">
                         <a>
                             <div class="col-md-12 waves-effect waves-light">
@@ -175,10 +176,9 @@
                                 <div class="mask"></div>
                             </div>
                             <div class="carousel-caption animated fadeInDown">
-                                <h3 class="h3-responsive default-color"></h3>
+                                <h4 class="h4-responsive rgba-black-strong"></h4>
                             </div>
                         </a>
-
                     </div>
                     <div class="carousel-item">
                         <!--Mask color-->
@@ -188,7 +188,7 @@
                                 <div class="mask"></div>
                             </div>
                             <div class="carousel-caption animated fadeInDown">
-                                <h3 class="h3-responsive default-color"></h3>
+                                <h4 class="h4-responsive rgba-black-strong"></h4>
                             </div>
                         </a>
 
@@ -201,7 +201,7 @@
                                 <div class="mask"></div>
                             </div>
                             <div class="carousel-caption animated fadeInDown">
-                                <h3 class="h3-responsive default-color"></h3>
+                                <h4 class="h4-responsive rgba-black-strong"></h4>
                             </div>
                         </a>
 
@@ -223,15 +223,10 @@
             <hr>
             <!-- search form -->
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="md-form">
                         <input type="text" class="form-control" id="search-query" onkeyup="enterToSearch(event)">
-                        <label>Tìm kiếm</label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="md-form form-group">
-                        <button type="button" class="btn btn-default waves-effect" onclick="searchVideo()"><i class="fa fa-search"></i></button>
+                        <label for="search-query"><i class="fa fa-search"></i> Tìm kiếm</label>
                     </div>
                 </div>
             </div> <!-- /search form -->
@@ -245,6 +240,82 @@
         </div> <!--/ col-md-8 -->
     </div> <!-- /row -->
 </main>
+
+<!--Footer-->
+<footer class="page-footer center-on-small-only purple-gradient">
+
+    <!--Footer Links-->
+    <div class="container">
+        <div class="row my-4">
+
+            <!--First column-->
+            <div class="col-md-4 col-lg-4">
+                <h5 class="title mb-4 font-bold">Video For You</h5>
+                <p>Dự án học tập và làm việc cùng API.</p>
+                <p>Bạn có thể tạo playlist cho riêng mình, chỉnh sửa mọi thông tin theo những gì bạn thích. Thao tác nhanh chóng với giao diện kéo thả.</p>
+            </div>
+            <!--/.First column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Second column-->
+            <div class="col-md-2 col-lg-2 ml-auto">
+                <h5 class="title mb-4 font-bold">Link</h5>
+                <ul>
+                    <p><a href="#">Trang chủ</a></p>
+                    <p><a href="pages/playlist.html">Playlist</a></p>
+                    <p><a href="pages/upload.html">Thêm Video</a></p>
+                </ul>
+            </div>
+            <!--/.Second column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Third column-->
+            <div class="col-md-4 col-lg-3">
+                <h5 class="title mb-4 font-bold">Liên hệ</h5>
+                <!--Info-->
+                <p><i class="fa fa-home mr-3"></i> C1707G, FPT Aptech, 8A Tôn Thất Thuyết, Hà Nội</p>
+                <p><i class="fa fa-envelope mr-3"></i> hoangdd00524@fpt.edu.vn</p>
+                <p><i class="fa fa-phone mr-3"></i> 01 234 567 89</p>
+                <p><i class="fa fa-print mr-3"></i> 09 876 543 21</p>
+            </div>
+            <!--/.Third column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Fourth column-->
+            <div class="col-md-2 col-lg-2 text-center">
+                <h5 class="title mb-4 font-bold">Follow</h5>
+                <!--Social buttons-->
+                <div class="social-section mt-2 ">
+                    <!--Facebook-->
+                    <a type="button" class="btn-floating btn-small btn-fb"><i class="fa fa-facebook"></i></a>
+                    <!--Twitter-->
+                    <a type="button" class="btn-floating btn-small btn-tw"><i class="fa fa-twitter"></i></a>
+                    <!--Google +-->
+                    <a type="button" class="btn-floating btn-small btn-gplus"><i class="fa fa-google-plus"></i></a>
+                    <!--Dribbble-->
+                    <a type="button" class="btn-floating btn-small btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                </div>
+            </div>
+            <!--/.Fourth column-->
+
+        </div>
+    </div>
+    <!--/.Footer Links-->
+
+    <!--Copyright-->
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2017 Copyright: <a href="#"> Đỗ Hoàng - FPT Aptech - C1707G </a> & Support by: <a href="#"> Mr. Đào Xuân Hùng</a>
+
+        </div>
+    </div>
+    <!--/.Copyright-->
+
+</footer>
+<!--/.Footer-->
 
     <!--Modal: modalYT-->
     <section  class="modal fade fadeIn" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -263,19 +334,22 @@
                 </div>
 
                 <!--Footer-->
-                <div class="modal-footer justify-content-right">
+                <div class="modal-footer justify-content-center">
+                    <span class="mr-4">Xem chi tiết hoặc Thêm nhanh vào playlist</span>
+                    <div>
+                        <a type="button" class="btn-floating btn-sm peach-gradient" id="watch-video-detail" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-info"></i>
+                        </a>
+                    </div>
+                    
                     <!--<p class="green-text" ng-show="uploadSuccess">Upload video thành công</p>-->
                     <div class="dropdown" style="display: none">
-                        <button type="button" class="btn btn-outline-orange btn-rounded btn-md ml-4 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Thêm vào
-                            <!--<div class="progress primary-color-dark" ng-show="uploadingVideo">-->
-                                <!--<div class="indeterminate"></div>-->
-                            <!--</div>-->
-                        </button>
+                        <a type="button" class="btn-floating btn-sm blue-gradient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-plus"></i>
+                        </a>
                         <!--Menu-->
                         <div class="dropdown-menu dropdown-primary animated fadeIn">
                             <a class="dropdown-item" onclick="addVideoToPlaylist('0')">Playlist chung</a>
-
                         </div>
                     </div>
                     <button type="button" class="btn btn-outline-default btn-rounded btn-md ml-4" onclick="closeVideoModal()">Đóng</button>

@@ -146,7 +146,7 @@ function loadVideoByPlaylistId(plId) {
                     document.querySelector("#video-inPl-tab div.row.display-flex").innerHTML = "";
                     for (var i=0; i<response.length; i++) {
                         var videoInPl = new videoData("", response[i].attributes.name, "", "", "", response[i].attributes.thumbnail);
-                        videoInPl.display(response[i].id);
+                        videoInPl.display(response[i].id, response[i].attributes.playlistId);
                     }
                 }
                 else {
@@ -166,8 +166,10 @@ function loadVideoByPlaylistId(plId) {
 }
 
 // Display the loaded Video function
-videoData.prototype.display = function (videoId) {
+videoData.prototype.display = function (videoId, playlistId) {
+    var videoName = this.data.attributes.name;
     var videoCard = document.createElement("div");
+    videoCard.id = videoId;
     videoCard.className = "col-lg-3 col-md-4 col-sm-6";
     videoCard.style.overflow = "hidden";
     videoCard.style.textOverflow = "ellipsis";
@@ -176,7 +178,7 @@ videoData.prototype.display = function (videoId) {
     card.className = "card padding-thumb";
     // view
     var view = document.createElement("div");
-    view.className = "view overlay waves-effect waves-light";
+    view.className = "view overlay waves-effect waves-light hm-white-strong";
     // thumb
     var thumb = document.createElement("img");
     thumb.className = "img-fluid";
@@ -187,15 +189,26 @@ videoData.prototype.display = function (videoId) {
     // mask
     var mask = document.createElement("div");
     mask.className = "mask flex-center";
-    // play icon
+    // fuction btn
     var watchBtn = document.createElement("a");
-    watchBtn.className = "btn btn-sm info-color";
-    watchBtn.appendChild(document.createTextNode("Xem"));
+    watchBtn.className = "black-text";
+    watchBtn.href = "watch.html?cid=" + videoId + "&plid=" + playlistId;
+    watchBtn.style.margin = "0 5px";
+    var watchBtnIcon = document.createElement("i");
+    watchBtnIcon.className = "fa fa-play fa-2x";
+    watchBtn.appendChild(watchBtnIcon);
+
     var deleteBtn = document.createElement("a");
-    deleteBtn.className = "btn btn-sm danger-color";
-    deleteBtn.appendChild(document.createTextNode("Xóa"));
+    deleteBtn.style.margin = "0 5px";
+    var deleteBtnIcon = document.createElement("i");
+    deleteBtnIcon.className = "fa fa-trash fa-2x";
+    deleteBtn.appendChild(deleteBtnIcon);
+    deleteBtn.addEventListener("click", function() {
+        confirmDeleteVideo(videoId, videoName);
+    });
     // append the thumbnail
     mask.appendChild(watchBtn);
+    mask.appendChild(document.createTextNode("|"));
     mask.appendChild(deleteBtn);
     view.appendChild(thumb);
     view.appendChild(mask);
@@ -283,4 +296,34 @@ function confirmDeletePl(plId, plName) {
 function signInFromAlert() {
     $("#alert-modal").modal("hide");
     $("#modalLoginForm").modal("show");
+}
+
+function deleteVideo(videoId) {
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+       if (this.readyState === 4) {
+           if (this.status === 200) {
+               toastr["error"]("Xóa video thành công");
+               document.querySelector("#video-inPl-tab div.row.display-flex").removeChild(document.getElementById(videoId));
+               $("#delete-playlist-modal").modal("hide");
+           }
+           else {
+               var respone = JSON.parse(this.responseText);
+               toastr["error"]("Đã xảy ra lỗi! Xóa video thất bại");
+               console.log(respone);
+           }
+       }
+    };
+    xhttp.open("DELETE", videoApi + "/" + videoId, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.setRequestHeader("Authorization", localStorage.getItem('token'));
+    xhttp.send();
+}
+
+function confirmDeleteVideo(videoId, videoName) {
+    $("#delete-playlist-modal").modal("show");
+    document.querySelector("#delete-playlist-modal > div > div > div.modal-header > h5").innerHTML = "Bạn thực sự muốn xóa video " + videoName + "?";
+    document.querySelector("#delete-playlist-modal > div > div > div.modal-body button.btn.danger-color").removeAttribute("onclick");
+    document.querySelector("#delete-playlist-modal > div > div > div.modal-body button.btn.danger-color").setAttribute("onclick", 'deleteVideo(\"' + videoId + '\")');
 }

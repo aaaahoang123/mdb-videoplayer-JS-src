@@ -8,7 +8,7 @@ var videoDataToSend = new videoData();
 videoData.prototype.display = function () {
     var dataVideoToPlay = this.data.attributes;
     var videoCard = document.createElement("div");
-    videoCard.className = "col-lg-4 col-md-6 col-sm-6";
+    videoCard.className = "col-lg-4 col-md-6 col-sm-6 mb-0";
     videoCard.style.overflow = "hidden";
     videoCard.style.textOverflow = "ellipsis";
     // card
@@ -38,7 +38,7 @@ videoData.prototype.display = function () {
     mask.className = "mask flex-center";
     // play icon
     var playIcon = document.createElement("i");
-    playIcon.className = "fa fa-play-circle fa-3x green-text";
+    playIcon.className = "fa fa-play-circle-o fa-3x white-text";
     // append the thumbnail
     mask.appendChild(playIcon);
     anchorPlayer.appendChild(mask);
@@ -92,7 +92,7 @@ function getVideoFromYoutube() {
           var videosArray = response.items;
           pageToken = response.nextPageToken;
           for (var i=0; i<videosArray.length; i++) {
-                var video = new videoData(videosArray[i].id.videoId, videosArray[i].snippet.title, "", videosArray[i].snippet.description, "", videosArray[i].snippet.thumbnails.medium.url);
+                var video = new videoData(videosArray[i].id.videoId, videosArray[i].snippet.title, videosArray[i].snippet.description, "", "", videosArray[i].snippet.thumbnails.medium.url);
                 video.display();
           }
           toastr["info"]("Đã load xong video!");
@@ -122,6 +122,7 @@ function playVideo(videoData) {
     document.querySelector("#modalYT").classList.remove("fadeOut");
     document.querySelector("#modalYT").classList.add("fadeIn");
     document.querySelector("#modalYT div div div div iframe").src = "https://www.youtube.com/embed/" + videoData.youtubeId;
+    document.querySelector("#watch-video-detail").href = "pages/watch.html?yid=" + videoData.youtubeId;
     videoDataToSend.data.attributes = videoData;
     setTimeout(function () {
         $("#modalYT").modal('show');
@@ -153,21 +154,25 @@ function loadUserPlaylist() {
                     playlistId = playlistArray[i].id;
                     // row
                     var row = document.createElement("div");
-                    row.className = "row shadow-box";
+                    row.className = "row z-depth-1 padding-thumb";
                     row.addEventListener("dragover", function () {                                                  //1. <div class="row shadow-box" ondragover="allowDrop(event)"
                         allowDrop(event);                                                                            // ondrop="drop(event, playlistId)">
                     });
                     row.setAttribute("ondrop", 'drop(event,' + playlistId + ')');
                     // thumb
-                    var thumb = document.createElement("a");                                                               //2L. <a class="col-md-4 col-sm-6 responsive-background"
+                    var thumb = document.createElement("a");                                                              //2L. <a class="col-md-4 col-sm-6 responsive-background"
+                    thumb.href = "pages/watch.html?plid=" + playlistId;
                     thumb.className = "col-md-4 col-sm-6 responsive-background";                                           // style="background-image: url(playlistArray[i].attributes.thumbnailUrl)">
                     thumb.style.backgroundImage = "url(" + playlistArray[i].attributes.thumbnailUrl + ")";
 
                     // info
                     var info = document.createElement("div");                                                              //2R. <div class="col-md-8 col-sm-6">
                     info.className = "col-md-8 col-sm-6";
+                    info.style.paddingTop = "5px";
                     // plName link
                     var plNameLink = document.createElement("a");                                                               //2R > 3. <a>
+                    plNameLink.className = "grey-text";
+                    plNameLink.href = "pages/watch.html?plid=" + playlistId;
                     //pl Name
                     var plName = document.createElement("h5");
                     plName.appendChild(document.createTextNode(playlistArray[i].attributes.name));                                  //2R > 3 > 4.1 <h5>playlistArray[i].attributes.name</h5>
@@ -216,10 +221,12 @@ function loadTopTrendingVideo() {
                 var response = JSON.parse(this.responseText);
                 var videoArray = response.items;
                 var carouselItemsIMG = document.querySelector("#carousel-top-trend div").querySelectorAll("div.carousel-item a div img");
-                var carouselItemsTitle = document.querySelector("#carousel-top-trend div").querySelectorAll("div.carousel-item a div h3");
+                var carouselItemsTitle = document.querySelector("#carousel-top-trend div").querySelectorAll("div.carousel-item a div h4");
+                var crouselItemsAnchor = document.querySelector("#carousel-top-trend div").querySelectorAll("div.carousel-item a");
                 for (var i=0; i<videoArray.length; i++) {
                     carouselItemsIMG[i].src = "https://i.ytimg.com/vi/" + videoArray[i].id + "/hqdefault.jpg";
                     carouselItemsTitle[i].innerHTML = videoArray[i].snippet.title;
+                    crouselItemsAnchor[i].href = "pages/watch.html?yid=" + videoArray[i].id;
                 }
             }
             else {
@@ -238,6 +245,7 @@ function getNewAddVideo() {
           if (this.status === 200) {
               var response = JSON.parse(this.responseText);
               if (response.data !== undefined) {
+                  document.querySelector("#new-video-card > div > div > a").href = "pages/watch.html?plid=" + response.data[0].attributes.playlistId + "&cid=" + response.data[0].id;
                   document.querySelector("#new-video-card > div > div > a > div > img").src = "https://i.ytimg.com/vi/" + response.data[0].attributes.youtubeId + "/mqdefault.jpg";
                   document.querySelector("#new-video-card > div > div > a > div > img").alt = response.data[0].attributes.name;
                   document.querySelector("#new-video-card > div > div > a > div > p").innerHTML = response.data[0].attributes.name;
