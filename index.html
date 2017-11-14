@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="icon" href="img/index.png">
-    <title>Music For You</title>
+    <title>Video For You</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -35,7 +35,7 @@
             <!-- Links -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#"><i class="fa fa-home fa-fw"></i> Trang chủ <span class="sr-only">(current)</span></a>
                 </li>
                 <!-- Dropdown -->
                 <li class="nav-item dropdown">
@@ -108,14 +108,14 @@
             <!-- card new video -->
             <div class="card" id="new-video-card">
                 <div class="card-body">
-                    <h5>Video mới</h5>
+                    <h5 class="orange-text">Video mới</h5>
                     <div class="row">
                         <a>
-                            <div class="col-md-12 waves-effect waves-light">
+                            <div class="col-md-12 waves-effect waves-light padding-thumb">
                                 <img class="d-block w-100" src="" alt="">
                             </div>
                             <div class="col-md-12">
-                                <p></p>
+                                <p class="grey-text"></p>
                             </div>
                         </a>
 
@@ -124,35 +124,66 @@
             </div>
             <!-- /card new video -->
             <hr>
-            <div class="sticky-top" id="sticky-playlist-card" style="top: 70px; display: none">
-                <a><h5>Playlist của bạn</h5></a>
-                <br>
-                <!--<div class="row">-->
-                    <!--<a class="col-md-4 col-sm-6 responsive-background"></a>-->
-                    <!--<div class="col-md-8 col-sm-6">-->
-                        <!--<a><h5></h5></a>-->
-                        <!--<p></p>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<br>-->
-                <!--<div class="row">-->
-                    <!--<a class="col-md-4 col-sm-6 responsive-background"></a>-->
-                    <!--<div class="col-md-8 col-sm-6">-->
-                        <!--<a><h5></h5></a>-->
-                        <!--<p></p>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<br>-->
-                <!--<div class="row">-->
-                    <!--<a class="col-md-4 col-sm-6 responsive-background"></a>-->
-                    <!--<div class="col-md-8 col-sm-6">-->
-                        <!--<a><h5></h5></a>-->
-                        <!--<p></p>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <div class="sticky-top" id="sticky-playlist-tabs">
+                <!-- Nav tabs -->
+                <div class="tabs-wrapper">
+                    <ul class="nav classic-tabs z-depth-1 justify-content-center" role="tablist">
+                        <li class="nav-item ml-0">
+                            <a class="nav-link waves-light active orange-text" data-toggle="tab" href="#playlist-tab" role="tab">Playlist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-light orange-text" data-toggle="tab" href="#add-playlist-tab" role="tab">Thêm Playlist</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tab panels -->
+                <div class="tab-content card">
+
+                    <!--Panel 1-->
+                    <div class="tab-pane fade in show active" id="playlist-tab" role="tabpanel">
 
 
+                    </div>
+                    <!--/.Panel 1-->
 
+                    <!--Panel 2-->
+                    <div class="tab-pane fade" id="add-playlist-tab" role="tabpanel">
+                        <!--form-->
+                        <form action="addPlaylist">
+                            <p class="h5 text-center mb-4">Thêm playlist</p>
+
+                            <div class="md-form">
+                                <i class="fa fa-th prefix grey-text"></i>
+                                <input type="text" id="playlist-name" class="form-control" required minlength="7">
+                                <label for="playlist-name">Tên playlist</label>
+                            </div>
+                            <div class="md-form">
+                                <i class="fa fa-info prefix grey-text"></i>
+                                <textarea type="text" id="playlist-description" class="md-textarea" style="height: 25px"></textarea>
+                                <label for="playlist-description">Mô tả</label>
+                            </div>
+
+                            <div class="md-form">
+                                <i class="fa fa-image prefix grey-text"></i>
+                                <input type="text" id="playlist-thumbnail" class="form-control">
+                                <label for="playlist-thumbnail">Thumbnail</label>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="button" onclick="addPlaylist()" id="add-playlist-btn" class="btn btn-blue-grey">
+                                    Lưu&nbsp;
+                                    <i class="fa fa-download fa-fw"></i>
+                                    <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true" style="display: none"></i>
+                                </button>
+                            </div>
+
+                        </form>
+                        <!--/form-->
+                    </div>
+                    <!--/.Panel 2-->
+
+                </div>
             </div>
 
         </div>
@@ -175,7 +206,7 @@
                                 <img class="d-block w-100" src="" alt="First slide">
                                 <div class="mask"></div>
                             </div>
-                            <div class="carousel-caption animated fadeInDown">
+                            <div class="carousel-caption animated fadeIn">
                                 <h4 class="h4-responsive rgba-black-strong"></h4>
                             </div>
                         </a>
@@ -187,7 +218,7 @@
                                 <img class="d-block w-100" src="" alt="Second slide">
                                 <div class="mask"></div>
                             </div>
-                            <div class="carousel-caption animated fadeInDown">
+                            <div class="carousel-caption animated fadeIn">
                                 <h4 class="h4-responsive rgba-black-strong"></h4>
                             </div>
                         </a>
@@ -200,7 +231,7 @@
                                 <img class="d-block w-100" src="" alt="Third slide">
                                 <div class="mask"></div>
                             </div>
-                            <div class="carousel-caption animated fadeInDown">
+                            <div class="carousel-caption animated fadeIn">
                                 <h4 class="h4-responsive rgba-black-strong"></h4>
                             </div>
                         </a>
@@ -209,12 +240,12 @@
                 </div>
                 <!--/.Slides-->
                 <!--Controls-->
-                <a class="carousel-control-prev" data-target="#carousel-top-trend" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <a class="carousel-control-prev white-text" data-target="#carousel-top-trend" role="button" data-slide="prev">
+                    <span class="fa fa-chevron-left fa-fw" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" data-target="#carousel-top-trend" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <a class="carousel-control-next white-text" data-target="#carousel-top-trend" role="button" data-slide="next">
+                    <span class="fa fa-chevron-right fa-fw" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
                 <!--/.Controls-->
@@ -235,7 +266,12 @@
 
             </div>
             <div class="row">
-                <button class="btn btn-default" onclick="getVideoFromYoutube()">Xem Thêm</button>
+                <button class="btn btn-default" onclick="getVideoFromYoutube()" id="see-more-video-btn">
+                    Xem Thêm&nbsp;
+                    <i class="fa fa-plus-square fa-fw"></i>
+                    <i class="fa fa-spinner fa-pulse fa-fw" aria-hidden="true" style="display: none"></i>
+                    <span class="sr-only">Loading...</span>
+                </button>
             </div>
         </div> <!--/ col-md-8 -->
     </div> <!-- /row -->
@@ -371,23 +407,8 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
     <script type="text/javascript" src="js/toastr.min.js"></script>
-    <script type="text/javascript" src="js/navbar.js"></script>
+    <script type="text/javascript" src="js/navbar.min.js"></script>
     <script type="text/javascript" src="js/home.js"></script>
-    <script>
-        getVideoFromYoutube();
-        loadTopTrendingVideo();
-        if (userToken !== null) {
-            loadUserPlaylist();
-            document.getElementById("sticky-playlist-card").style.display = "";
-            document.querySelector("section#modalYT > div > div > div > div.dropdown").style.display = "";
-            getNewAddVideo();
-        }
-        else {
-            document.querySelector("#new-video-card > div > div > a > div > img").src = "http://1.bp.blogspot.com/-SRdKauDRBg4/T3pVgdOxgAI/AAAAAAAAAZs/-QxJ9qdb8FI/s640/undefined_01.jpg";
-            document.querySelector("#new-video-card > div > div > a > div > img").alt = "Chưa có video";
-            document.querySelector("#new-video-card > div > div > a > div > p").innerHTML = "Không có video mới! Bạn chưa đăng nhập hoặc chưa từng upload video";
-        }
-    </script>
 </body>
 
 </html>

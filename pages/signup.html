@@ -12,11 +12,31 @@
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link rel="stylesheet" href="../css/selecty.min.css">
     <link href="../css/mdb.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../css/bootstrap-datepicker3.standalone.min.css">
     <!-- Your custom styles (optional) -->
     <link href="../css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/jquery.material.form.min.css">
+	<style>
+		[type=radio]+label:after, [type=radio]+label:before {
+			content: normal;
+		}
+		ul, menu, dir {
+			list-style-type: none;
+		}
+		[type=radio]+label, [type=checkbox]+label {
+			height: 37px;
+		}
+		.material .material-select {
+			padding-top: 10px;
+		}
+		.material .material-select.filled>.material-title, .material .material-select>input:checked+.material-title {
+			top: -5px;
+		}
+		.material .material-select ul {
+			z-index: 9999;
+		}
+	</style>
 
 </head>
 
@@ -26,7 +46,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark purple-gradient fixed-top">
     <div class="container">
         <!-- Navbar brand -->
-        <a class="navbar-brand" href="../index.html">V4U</a>
+        <a class="navbar-brand" href="../">V4U</a>
 
         <!-- Collapse button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -38,7 +58,7 @@
             <!-- Links -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../index.html"><i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="../"><i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
                 </li>
                 <!-- Dropdown -->
                 <li class="nav-item dropdown">
@@ -164,23 +184,19 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<div class="md-form">				
-						<i class="fa fa-intersex prefix grey-text"></i>
-                        <div class="ml-5" style="padding-top: 20px">
-                            <select name="gender">
-                                <option value="2" selected>Khác</option>
-								<option value="0">Nam</option>
-								<option value="1">Nữ</option>
-                            </select>
-                        </div>
-
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="md-form">				
+					<div class="md-form">
 						<i class="fa fa-smile-o prefix grey-text"></i>
 						<input type="text" class="form-control" name="avatar">
 						<label>Avatar URL</label>
+					</div>
+				</div>
+				<div class="col-md-6" style="margin-top: 5px">
+					<div class="material">
+						<select name="gender"  placeholder="Giới tính">
+							<option value="2" selected>Khác</option>
+							<option value="0">Nam</option>
+							<option value="1">Nữ</option>
+						</select>
 					</div>
 				</div>
 			</div>
@@ -279,15 +295,19 @@
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 
-<script type="text/javascript" src="../js/selecty.min.js"></script>
+
 <script type="text/javascript" src="../js/mdb.js"></script>
 <script type="text/javascript" src="../js/toastr.min.js"></script>
-<script type="text/javascript" src="../js/navbar.js"></script>
+<script type="text/javascript" src="../js/navbar.min.js"></script>
+<script type="text/javascript" src="../js/jquery.material.form.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="../js/signup.js"></script>
+<script type="text/javascript" src="../js/signup.min.js"></script>
 
 <script type="text/javascript">
-    $('select').selecty(); // change the select of form to selecty material style
+	$(document).ready(function () {
+        $('.material').materialForm();// change the select of form to material style
+    });
+
     $('.datepicker').datepicker({
         format: 'mm/dd/yyyy',
         Date: '-3d'

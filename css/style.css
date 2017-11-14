@@ -152,3 +152,6 @@ div.row.display-flex div.col-lg-4.col-md-6.col-sm-6 div.card{
     display: inline-block;
     float: none;
 }
+#sticky-playlist-tabs {
+    top: 58px; display: none
+}

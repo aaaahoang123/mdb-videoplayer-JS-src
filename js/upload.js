@@ -22,7 +22,7 @@ var dataToSend = new videoData();
 dataToSend = this;
     //column
   var column = document.createElement("div");  // <div class="col-lg-6 col-md-12">
-  column.className = "col-lg-6 col-md-12";
+  column.className = "col-lg-6 col-md-12 animated fadeIn";
     // card
   var card = document.createElement("div");
   card.className = "card padding-thumb";
@@ -32,7 +32,7 @@ dataToSend = this;
       dataToSend.demo();
   });
   anchor.addEventListener("click", takeInfoOfVideo);
-  anchor.addEventListener("dragstart", function() {
+  anchor.addEventListener("dragstart", function(event) {
       dragVideo(event, dataToSend);
   });
   // img
@@ -66,32 +66,6 @@ videoData.prototype.bindToForm = function () {
     document.forms["uploadForm"]["name"].value = this.data.attributes.name;
     document.forms["uploadForm"]["description"].value = this.data.attributes.description;
     document.forms["uploadForm"]["keywords"].value = this.data.attributes.keywords;
-};
-//upload method
-videoData.prototype.upload = function () {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            if (this.status === 201) {
-                var response = JSON.parse(this.responseText);
-                var resetForm = new videoData("","","","","","");
-                resetForm.bindToForm();
-                var labels = document.forms["uploadForm"].querySelectorAll("label");
-                for (var i=0; i<labels.length; i++) {
-                  labels[i].className = "";
-                }
-                toastr["success"]("Thêm video vào playlist thành công!");
-            }
-            else {
-                response = JSON.parse(this.responseText);
-                console.log(response);
-            }
-        }
-    };
-    xhttp.open("POST", videoApi, true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.setRequestHeader("Authorization", localStorage.getItem('token'));
-    xhttp.send(JSON.stringify(this));
 };
 function getVideo(pageToken) {
     var searchQuery = document.getElementById("search-query").value;
@@ -203,7 +177,7 @@ function loadUserPlaylist() {
                   document.querySelector("#playlist-select select").appendChild(playlistOption);
 
               }
-              $('select').selecty();
+              $('.material').materialForm();
           }
           else {
               response = JSON.parse(this.responseText);
@@ -233,7 +207,29 @@ function addVideo() {
     var thumbnail = "https://i.ytimg.com/vi/" + youtubeId.value + "/mqdefault.jpg";
     var videoAdding = new videoData(youtubeId.value, videoName.value, description, keywords, playlistId, thumbnail);
     if (youtubeId.validity.valid && videoName.validity.valid) {
-        videoAdding.upload();
+        document.querySelectorAll("#add-video-btn i")[0].style.display = "none";
+        document.querySelectorAll("#add-video-btn i")[1].style.display = "";
+        document.querySelector("#add-video-btn").setAttribute("disabled", "true");
+        videoAdding.pUploadVideo({
+            success: function (response) {
+                setTimeout(function () {
+                    var resetForm = new videoData("","","","","","");
+                    resetForm.bindToForm();
+                    var labels = document.forms["uploadForm"].querySelectorAll("label");
+                    for (var i=0; i<labels.length; i++) {
+                        labels[i].className = "";
+                    }
+                    document.querySelectorAll("#add-video-btn i")[0].style.display = "";
+                    document.querySelectorAll("#add-video-btn i")[1].style.display = "none";
+                    document.querySelector("#add-video-btn").removeAttribute("disabled");
+                    toastr["success"]("Thêm video vào playlist thành công!");
+                }, 200);
+
+            },
+            error: function (response) {
+                    console.log(response);
+            }
+        });
     }
     if (youtubeId.validity.tooShort || youtubeId.validity.tooLong) {
         toastr["warning"]("ID của video chỉ có 11 ký tự");

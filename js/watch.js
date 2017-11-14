@@ -2,6 +2,10 @@ $(document).ready(function () {
     $(".hover-popover").popover({
         trigger: "hover"
     });
+    // Tooltips Initialization
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
 });
 
 // method for videoData object
@@ -40,7 +44,7 @@ videoData.prototype.bindToSide = function () {
 	var videoDataToDrag = new videoData();
 	videoDataToDrag.data = this.data;
 	var row = document.createElement("div");
-	row.className = "row padding-thumb";
+	row.className = "row padding-thumb animated fadeIn";
 	// column Image
 	var columnImage =  document.createElement("div");
     columnImage.className = "col-md-6";
@@ -207,6 +211,26 @@ function loadSuggestVideo(keyword) {
 	xhttp.open("GET", url, true);
 	xhttp.send();
 }
+// load video of youtube
+function loadVideoOfYoutube(id, callBack) {
+    var url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id='+ id + '&key=AIzaSyBStdhzhkK8ne1tqsUz4A8j9axNi0NqE_M';
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                var response = JSON.parse(this.responseText).items[0];
+                callBack.success(response);
+            }
+            else {
+                response = JSON.parse(this.responseText);
+                toastr["error"]("Xảy ra lỗi khi load video, vui lòng kiểm inspect log và báo cho chúng tôi");
+                console.log(response);
+            }
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+}
 // load video of playlist
 function loadVideoOfPlaylist(plId, id) {
     var xhttp = new XMLHttpRequest();
@@ -227,6 +251,32 @@ function loadVideoOfPlaylist(plId, id) {
                     document.querySelector("#videoFormModal > div > div > div.modal-footer > button").addEventListener("click", function () {
 						editVideo(watchingVideo.id);
                     });
+                    // auto complete Button
+                    var autoCompleteBtn = document.createElement("button");
+                    autoCompleteBtn.type = "button";
+                    autoCompleteBtn.className = "btn btn-primary waves-effect waves-light";
+                    autoCompleteBtn.title = "Hoàn thành form với thông tin mặc định của video";
+                    autoCompleteBtn.appendChild(document.createTextNode("Mặc định"));
+                    var autoCompleteIcon = document.createElement("i");
+                    autoCompleteIcon.className = "fa fa-star-o ml-1";
+                    autoCompleteBtn.appendChild(autoCompleteIcon);
+                    autoCompleteBtn.addEventListener("click", function () {
+                        loadVideoOfYoutube(watchingVideo.data.attributes.youtubeId, {
+                            success: function (resp) {
+                                if (resp !== undefined) {
+                                    var video = new videoData(resp.id, resp.snippet.title, resp.snippet.description, resp.snippet.tags,  "", resp.snippet.thumbnails.medium.url);
+                                    video.bindToForm();
+                                }
+                                else {
+                                    console.log(resp);
+                                    toastr["warning"]("Xảy ra lỗi bất thường khi load video");
+                                }
+                            }
+                        })
+                    });
+                    document.querySelector("#videoFormModal > div > div > div.modal-footer").appendChild(autoCompleteBtn);
+
+                    // delete button
                     document.querySelector("#alert-delete-video > div > div > div.modal-footer").querySelectorAll("a")[0].addEventListener("click", function () {
 						deleteVideo(watchingVideo.id);
                     });
@@ -280,37 +330,6 @@ function loadVideoOfPlaylist(plId, id) {
     xhttp.send();
 }
 
-// load video of youtube
-function loadVideoOfYoutube(id) {
-	var url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id='+ id + '&key=AIzaSyBStdhzhkK8ne1tqsUz4A8j9axNi0NqE_M';
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function () {
-		if (this.readyState === 4) {
-			if (this.status === 200) {
-				var response = JSON.parse(this.responseText).items[0];
-				if (response !== undefined) {
-                    var video = new videoData(response.id, response.snippet.title, response.snippet.description, response.snippet.tags,  "", response.snippet.thumbnails.medium.url);
-                    video.bindToForm();
-                    document.querySelector("#videoFormModal > div > div > div.modal-footer > button").addEventListener("click", uploadVideo);
-                    video.addIdCrTime("", response.snippet.publishedAt);
-                    video.watchVideo();
-                    loadSuggestVideo(response.snippet.title);
-                    document.getElementById("content").style.display = "";
-				}
-				else {
-                    $("#alertModal").modal();
-				}
-			}
-			else {
-                response = JSON.parse(this.responseText);
-                console.log(response);
-			}
-		}
-    };
-	xhttp.open("GET", url, true);
-	xhttp.send();
-}
-
 // Load playlist detail
 function loadPlaylistDetail(plId) {
 	var xhttp = new XMLHttpRequest();
@@ -318,28 +337,30 @@ function loadPlaylistDetail(plId) {
 		if (this.readyState === 4) {
 			if (this.status === 200) {
 				var response = JSON.parse(this.responseText).data;
-				for (var i=0; i<response.length; i++) {
-					var option = document.createElement("option");
-					option.value = response[i].id;
-					option.innerHTML = response[i].attributes.name;
+				if (response !== undefined) {
+                    for (var i=0; i<response.length; i++) {
+                        var option = document.createElement("option");
+                        option.value = response[i].id;
+                        option.innerHTML = response[i].attributes.name;
 
-					if (response[i].id === plId) {
-						option.setAttribute("selected", "true");
-						document.querySelector("#watching-playlist > div.view > div.playlist-thumb").style.backgroundImage = "url(" + response[i].attributes.thumbnailUrl + ")";
-                        document.querySelector("#watching-playlist").addEventListener("dragover", function (event) {
-							allowDrop(event);
-                        });
-                        document.querySelector("#watching-playlist").addEventListener("drop", function (event) {
-                            drop(event, plId);
-                        });
-						document.querySelector("#watching-playlist > div.card-body > h4").innerHTML = response[i].attributes.name;
-                        document.querySelector("#watching-playlist > div.card-body > p").innerHTML = response[i].attributes.description;
-                        document.querySelector("#watching-playlist > div.card-data > ul > li > span").innerHTML = new Date(response[i].attributes.createdTimeMLS).toLocaleDateString();
-					}
-					document.forms["uploadOrEditForm"]["playlistId"].appendChild(option);
-				}
-				$("select").selecty();
-			}
+                        if (response[i].id === plId) {
+                            option.setAttribute("selected", "true");
+                            document.querySelector("#watching-playlist > div.view > div.playlist-thumb").style.backgroundImage = "url(" + response[i].attributes.thumbnailUrl + ")";
+                            document.querySelector("#watching-playlist").addEventListener("dragover", function (event) {
+                                allowDrop(event);
+                            });
+                            document.querySelector("#watching-playlist").addEventListener("drop", function (event) {
+                                drop(event, plId);
+                            });
+                            document.querySelector("#watching-playlist > div.card-body > h4").innerHTML = response[i].attributes.name;
+                            document.querySelector("#watching-playlist > div.card-body > p").innerHTML = response[i].attributes.description;
+                            document.querySelector("#watching-playlist > div.card-data > ul > li > span").innerHTML = new Date(response[i].attributes.createdTimeMLS).toLocaleDateString();
+                        }
+                        document.forms["uploadOrEditForm"]["playlistId"].appendChild(option);
+                    }
+                }
+                $('.material').materialForm();
+            }
 			else {
                 response = JSON.parse(this.responseText);
                 console.log(response);
@@ -354,25 +375,17 @@ function loadPlaylistDetail(plId) {
 
 // upload video method
 videoData.prototype.uploadVideo = function () {
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function () {
-		if (this.readyState === 4) {
-			if (this.status === 201) {
-				var response = JSON.parse(this.responseText);
-                toastr["success"]("Đã thêm video thành công!");
-                $("#videoFormModal").modal("hide");
-				console.log(response);
-			}
-			else {
-                response = JSON.parse(this.responseText);
-                console.log(response);
-			}
-		}
-    };
-	xhttp.open("POST", videoApi, true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.setRequestHeader("Authorization", localStorage.getItem('token'));
-    xhttp.send(JSON.stringify(this));
+    this.pUploadVideo({
+       success: function (response) {
+           toastr["success"]("Đã thêm video thành công!");
+           $("#videoFormModal").modal("hide");
+           console.log(response);
+       },
+       error: function (response) {
+           toastr["warning"]("Upload video thất bại. Vui lòng inspect logs hoặc báo cho chúng tôi! Xin lỗi vì sự bất tiện này!");
+           console.log(response);
+       }
+    });
 };
 function uploadVideo() {
     var id = document.forms["uploadOrEditForm"]["videoId"].value;
@@ -477,12 +490,29 @@ else {
         $("#alertModal").modal();
     }
     else if (searchObj.yid !== undefined) {
-        loadVideoOfYoutube(searchObj.yid);
+        loadVideoOfYoutube(searchObj.yid, {
+            success: function (response) {
+                if (response !== undefined) {
+                    var video = new videoData(response.id, response.snippet.title, response.snippet.description, response.snippet.tags,  "", response.snippet.thumbnails.medium.url);
+                    video.bindToForm();
+                    document.querySelector("#videoFormModal > div > div > div.modal-footer > button").addEventListener("click", uploadVideo);
+                    video.addIdCrTime("", response.snippet.publishedAt);
+                    video.watchVideo();
+                    loadSuggestVideo(response.snippet.title);
+                    document.getElementById("content").style.display = "";
+                }
+                else {
+                    $("#alertModal").modal();
+                }
+            }
+        });
         if (userToken !== null) {
             document.querySelector("#y-video-activator").style.display = "";
             loadPlaylistDetail("");
 		}
+        else {
 
+        }
 	}
 	else if (searchObj.plid !== undefined) {
     	if (userToken !== null) {

@@ -5,7 +5,7 @@ var playlistApi = 'https://youtube-api-challenger2.appspot.com/playlists';
 var userToken = localStorage.getItem('token');
 toastr.options.positionClass = "toast-bottom-right";
 if (userToken !== null) {
-    document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[0].innerHTML = '<i class="fa fa-user"></i>' + localStorage.getItem('username');
+    document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[0].innerHTML = '<i class="fa fa-user"></i> ' + localStorage.getItem('username');
 	document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[0].removeAttribute("href");
     document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[1].innerHTML = '<i class="fa fa-sign-out"></i> Đăng xuất';
     document.querySelector("ul.navbar-nav.ml-auto").querySelectorAll("li a")[1].addEventListener('click', signOut);
@@ -86,7 +86,24 @@ var videoData = function (id, name, description, keywords, playlistId, thumbnail
         }
     }
 };
-
+videoData.prototype.pUploadVideo = function (callBackFunction) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            var response = JSON.parse(this.responseText);
+            if (this.status === 201 || this.status === 200) {
+                callBackFunction.success(response);
+            }
+            else {
+                callBackFunction.error(response);
+            }
+        }
+    };
+    xhttp.open("POST", videoApi, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.setRequestHeader("Authorization", localStorage.getItem('token'));
+    xhttp.send(JSON.stringify(this));
+};
 var playlistData = function(name, description, thumbnailUrl) {
     this.data = {
         "type":"Playlist",

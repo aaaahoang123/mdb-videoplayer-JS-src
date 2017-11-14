@@ -170,7 +170,7 @@ videoData.prototype.display = function (videoId, playlistId) {
     var videoName = this.data.attributes.name;
     var videoCard = document.createElement("div");
     videoCard.id = videoId;
-    videoCard.className = "col-lg-3 col-md-4 col-sm-6";
+    videoCard.className = "col-lg-3 col-md-4 col-sm-6 animated fadeIn";
     videoCard.style.overflow = "hidden";
     videoCard.style.textOverflow = "ellipsis";
     // card
@@ -233,9 +233,12 @@ function showVideoInPlTab(name, plId) {
     document.querySelector("#localTab").querySelectorAll("li")[2].style.display = "";
     document.querySelector("#video-inPl-tab > ul > li > a > span").innerHTML = name;
     document.querySelector("#video-inPl-tab > ul").querySelectorAll("li a")[1].href = "upload.html?playlistId=" + plId;
-    $(function () {
-        $('#localTab a:last').tab('show')
-    })
+    setTimeout(function () {
+        $(function () {
+            $('#localTab a:last').tab('show')
+        })
+    }, 300);
+
 }
 
 function addPlaylist() {
@@ -261,6 +264,11 @@ function addPlaylist() {
             document.forms["add-playlist-form"]["name"].value = "";
             document.forms["add-playlist-form"]["description"].value = "";
             document.forms["add-playlist-form"]["thumbnail"].value = "";
+        }
+        else {
+            response = JSON.parse(newPlaylist.xhttp.responseText);
+            console.log(response);
+            toastr["error"]("Đã xảy ra lỗi. Vui lòng inspect logs và báo cho chúng tôi");
         }
     }
 }
