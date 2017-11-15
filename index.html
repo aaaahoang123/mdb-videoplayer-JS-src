@@ -20,7 +20,7 @@
 <body>
 
     <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark blue-grey darken-4 fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark mdb-color darken-4 fixed-top">
     <div class="container">
             <!-- Navbar brand -->
         <a class="navbar-brand" href="#">V4U</a>
@@ -97,14 +97,14 @@
     </div>
 <!--/.Navbar-->
     <!-- main -->
-<main class="container">
+<div class="container">
     <!-- bread crumb -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item active">Home</li>
     </ol>
     <!-- /bread crumb -->
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-xl-4 col-lg-4 col-md-4">
             <!-- card new video -->
             <div class="card" id="new-video-card">
                 <div class="card-body">
@@ -129,10 +129,10 @@
                 <div class="tabs-wrapper">
                     <ul class="nav classic-tabs z-depth-1 justify-content-center" role="tablist">
                         <li class="nav-item ml-0">
-                            <a class="nav-link waves-light active orange-text" data-toggle="tab" href="#playlist-tab" role="tab">Playlist</a>
+                            <a class="nav-link waves-light active orange-text" data-toggle="tab" href="#playlist-tab" role="tab"><strong>Playlist</strong></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link waves-light orange-text" data-toggle="tab" href="#add-playlist-tab" role="tab">Thêm Playlist</a>
+                            <a class="nav-link waves-light orange-text" data-toggle="tab" href="#add-playlist-tab" role="tab"><strong>Thêm Playlist</strong></a>
                         </li>
                     </ul>
                 </div>
@@ -188,7 +188,7 @@
 
         </div>
 
-        <div class="col-md-8">
+        <div class="col-xl-8 col-lg-8 col-md-8">
             <!--Carousel Wrapper-->
             <div id="carousel-top-trend" class="carousel slide carousel-fade" data-ride="carousel">
                 <!--Indicators-->
@@ -275,10 +275,9 @@
             </div>
         </div> <!--/ col-md-8 -->
     </div> <!-- /row -->
-</main>
-
+</div>
 <!--Footer-->
-<footer class="page-footer center-on-small-only rgba-black-strong">
+<footer class="page-footer center-on-small-only mdb-color darken-4" style="clear: both">
 
     <!--Footer Links-->
     <div class="container">
@@ -353,62 +352,65 @@
 </footer>
 <!--/.Footer-->
 
-    <!--Modal: modalYT-->
-    <section  class="modal fade fadeIn" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
 
-            <!--Content-->
-            <div class="modal-content">
+<!--Modal: modalYT-->
+<section  class="modal fade fadeIn" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
 
-                <!--Body-->
-                <div class="modal-body mb-0 p-0">
+        <!--Content-->
+        <div class="modal-content">
 
-                    <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                        <iframe class="embed-responsive-item" src="" allowfullscreen></iframe>
-                    </div>
+            <!--Body-->
+            <div class="modal-body mb-0 p-0">
 
-                </div>
-
-                <!--Footer-->
-                <div class="modal-footer justify-content-center">
-                    <span class="mr-4">Xem chi tiết hoặc Thêm nhanh vào playlist</span>
-                    <div>
-                        <a type="button" class="btn-floating btn-sm peach-gradient" id="watch-video-detail" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-info"></i>
-                        </a>
-                    </div>
-                    
-                    <!--<p class="green-text" ng-show="uploadSuccess">Upload video thành công</p>-->
-                    <div class="dropdown" style="display: none">
-                        <a type="button" class="btn-floating btn-sm blue-gradient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-plus"></i>
-                        </a>
-                        <!--Menu-->
-                        <div class="dropdown-menu dropdown-primary animated fadeIn">
-                            <a class="dropdown-item" onclick="addVideoToPlaylist('0')">Playlist chung</a>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-outline-default btn-rounded btn-md ml-4" onclick="closeVideoModal()">Đóng</button>
+                <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                    <iframe class="embed-responsive-item" src="" allowfullscreen></iframe>
                 </div>
 
             </div>
-            <!--/.Content-->
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <span class="mr-4">Xem chi tiết hoặc Thêm nhanh vào playlist</span>
+                <div>
+                    <a type="button" class="btn-floating btn-sm peach-gradient" id="watch-video-detail" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-info"></i>
+                    </a>
+                </div>
+
+                <!--<p class="green-text" ng-show="uploadSuccess">Upload video thành công</p>-->
+                <div class="dropdown" style="display: none">
+                    <a type="button" class="btn-floating btn-sm blue-gradient" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <!--Menu-->
+                    <div class="dropdown-menu dropdown-primary animated fadeIn">
+                        <a class="dropdown-item" onclick="addVideoToPlaylist('0')">Playlist chung</a>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-default btn-rounded btn-md ml-4" onclick="closeVideoModal()">Đóng</button>
+            </div>
 
         </div>
-    </section>
-    <!--Modal: modalYT-->
+        <!--/.Content-->
+
+    </div>
+</section>
+<!--Modal: modalYT-->
     <!-- SCRIPTS -->
     <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
-    <script type="text/javascript" src="js/toastr.min.js"></script>
-    <script type="text/javascript" src="js/navbar.min.js"></script>
-    <script type="text/javascript" src="js/home.js"></script>
+
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<script type="text/javascript" src="js/toastr.min.js"></script>
+<script type="text/javascript" src="js/navbar.min.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
 </body>
 
 </html>
