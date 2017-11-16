@@ -354,11 +354,26 @@
 
 
 <!--Modal: modalYT-->
-<section  class="modal fade fadeIn" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<section class="modal fade" id="modalYT" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
 
         <!--Content-->
         <div class="modal-content">
+            <!-- modal header -->
+            <div class="modal-header">
+                <p class="heading lead"></p>
+                <div class="close">
+                    <button type="button" class="close ml-4" onclick="closeVideoModal()" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="fa fa-close fa-fw" style="font-size: 14px"></span>
+                    </button>
+                    <button type="button" class="close" id="mini-max-btn" onclick="minimizeModal();">
+                        <span aria-hidden="true" class="fa fa-window-restore fa-fw" style="font-size: 14px"></span>
+                    </button>
+                    <!--<button type="button" class="close" onclick="maximizeModal();">-->
+                        <!--<span aria-hidden="true" class="fa fa-window-maximize fa-fw" style="font-size: 14px"></span>-->
+                    <!--</button>-->
+                </div>
+            </div>
 
             <!--Body-->
             <div class="modal-body mb-0 p-0">
@@ -370,7 +385,7 @@
             </div>
 
             <!--Footer-->
-            <div class="modal-footer justify-content-center">
+            <div class="modal-footer justify-content-center white">
                 <span class="mr-4">Xem chi tiết hoặc Thêm nhanh vào playlist</span>
                 <div>
                     <a type="button" class="btn-floating btn-sm peach-gradient" id="watch-video-detail" aria-haspopup="true" aria-expanded="false">
@@ -399,7 +414,6 @@
 <!--Modal: modalYT-->
     <!-- SCRIPTS -->
     <!-- JQuery -->
-
 
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap tooltips -->

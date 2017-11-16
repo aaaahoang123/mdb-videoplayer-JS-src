@@ -124,28 +124,49 @@ function enterToSearch(event) {
 }
 // play video within modal, and make the DataToSend ready
 function playVideo(videoData) {
-    document.querySelector("#modalYT").classList.remove("fadeOut");
-    document.querySelector("#modalYT").classList.add("fadeIn");
     document.querySelector("#modalYT div div div div iframe").src = "https://www.youtube.com/embed/" + videoData.youtubeId;
     document.querySelector("#watch-video-detail").href = "pages/watch.html?yid=" + videoData.youtubeId;
     videoDataToSend.data.attributes = videoData;
-    setTimeout(function () {
-        $("#modalYT").modal('show');
-    }, 100);
-    return true;
+    if (!$("#modalYT").hasClass("show")) {
+        setTimeout(function () {
+            $("#modalYT").modal('show');
+        }, 100);
+    }
 }
 
 // close and clear modal
 function closeVideoModal() {
-    document.querySelector("#modalYT").classList.remove("fadeIn");
-    document.querySelector("#modalYT").classList.add("fadeOut");
-    setTimeout(function () {
-        $("#modalYT").modal('hide');
+    $("#modalYT").modal('hide');
+    setTimeout(function() {
         document.querySelector("#modalYT div div div div iframe").src = "";
-    },100);
-
+        maximizeModal();
+    }, 300);
 }
-
+// minimize modal
+function minimizeModal() {
+    if ($(window).width() > 974) {
+        document.querySelector("#modalYT").className += " left modal-scrolling";
+        document.querySelector("#modalYT").setAttribute("data-backdrop", "false");
+        document.querySelector("#modalYT > div").className += " modal-side modal-bottom-left";
+        document.querySelector(".modal-backdrop.fade.show").style.display = "none";
+        document.querySelector("#modalYT > div > div.modal-content > div.modal-footer.justify-content-center").style.display = "none";
+        document.querySelector("#mini-max-btn").setAttribute("onclick", "maximizeModal()");
+        document.querySelector("#mini-max-btn > span").className = "fa fa-window-maximize";
+    }
+    else {
+        toastr["warning"]("Chức năng này không hỗ trợ cho màn hình cỡ nhỏ");
+    }
+}
+// maximize modal
+function maximizeModal() {
+    document.querySelector("#modalYT").removeAttribute("data-backdrop");
+    document.querySelector("#modalYT").className = document.querySelector("#modalYT").className.replace(" left modal-scrolling", "") ;
+    document.querySelector("#modalYT > div").className = document.querySelector("#modalYT > div").className.replace(" modal-side modal-bottom-left", "") ;
+    document.querySelector("#modalYT > div > div.modal-content > div.modal-footer.justify-content-center").removeAttribute("style");
+    document.querySelector("#mini-max-btn").setAttribute("onclick", "minimizeModal()");
+    document.querySelector("#mini-max-btn > span").className = "fa fa-window-restore";
+    document.querySelector(".modal-backdrop.fade.show").style.display = "";
+}
 function loadUserPlaylist() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -352,7 +373,6 @@ function drop(ev, playlistId) {
     videoDataToSend.data.attributes = JSON.parse(data);
     videoDataToSend.quickUploadVideo(playlistId);
 }
-
 $(document).ready(function () {
     getVideoFromYoutube();
     loadTopTrendingVideo();
